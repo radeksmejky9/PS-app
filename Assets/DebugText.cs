@@ -17,8 +17,18 @@ public class DebugText : MonoBehaviour
     void Update()
     {
         txt.text = @$"
-        XR: {assets.position.x}, {assets.position.y}, {assets.position.z}
-        cam: {cam.position.x}, {cam.position.y}, {cam.position.z}
+        assets: 
+        {assets.position.x}
+        {assets.position.y}
+        {assets.position.z}
+        cam:
+        {cam.position.x}
+        {cam.position.y}
+        {cam.position.z}
+        cam: 
+        {cam.rotation.x}
+        {cam.rotation.y}
+        {cam.rotation.z}
         ";
     }
 }

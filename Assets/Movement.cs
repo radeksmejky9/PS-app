@@ -18,5 +18,6 @@ public class Movement : MonoBehaviour
             snappingPoints[0].position.x * -1 + cam.position.x,
             snappingPoints[0].position.y * -1 + cam.position.y,
             snappingPoints[0].position.z * -1 + cam.position.z);
+        //Model.rotation = new Quaternion(cam.rotation.x, cam.rotation.y, cam.rotation.z, cam.rotation.w);
     }
 }
