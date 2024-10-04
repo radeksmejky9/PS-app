@@ -48,14 +48,21 @@ public class Movement : MonoBehaviour
         Assets.position = new Vector3(
                 -snappingPoints[1].position.x + cam.position.x,
                 -snappingPoints[1].position.y + cam.position.y,
-                -snappingPoints[1].position.z + cam.position.z);
+                -snappingPoints[1].position.z + cam.position.z
+                );
         Assets.rotation = new quaternion(0, 0, 0, 0);
         currentCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        currentCube.GetComponent<Renderer>().enabled = false;
         currentCube.transform.position = cam.position;
         currentCube.transform.parent = Model;
         Assets.parent = currentCube.transform;
-        quaternion snappingPointRotation = quaternion.Euler(snappingPoints[1].eulerAngles);
-        currentCube.transform.rotation = snappingPointRotation * cam.rotation;
+
+        Vector3 snappingPointEuler = snappingPoints[1].eulerAngles;
+        float snappingPointY = snappingPointEuler.y;
+        Quaternion snappingPointRotation = Quaternion.Euler(0, snappingPointY, 0);
+        float camYRotation = cam.rotation.eulerAngles.y;
+        Quaternion camYRotationOnly = Quaternion.Euler(0, camYRotation, 0);
+        currentCube.transform.rotation = snappingPointRotation * camYRotationOnly;
     }
 
     private void OnChanged(ARTrackedImagesChangedEventArgs eventArgs)
