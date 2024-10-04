@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 2512387470528047738, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047738, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
@@ -285,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 2512387470528047738, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047738, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1093260924}
-  Model: {fileID: 2063202660}
+  Assets: {fileID: 2063202660}
   snappingPoints:
   - {fileID: 2009815759}
 --- !u!4 &702657152
@@ -1733,8 +1733,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155, y: -20}
-  m_SizeDelta: {x: 680, y: 1350}
+  m_AnchoredPosition: {x: 0, y: 225.99963}
+  m_SizeDelta: {x: 1080, y: 1828.0007}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1228608001
 MonoBehaviour:
@@ -1756,7 +1756,41 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DEBUG
+  m_text: '<b><color=#FFD700>Assets Position:</color></b>
+
+    X: 0
+
+    Y: 0
+
+    Z:
+    0
+
+    <b><color=#FFD700>Assets Rotation:</color></b>
+
+    X: 0
+
+    Y: 0
+
+    Z:
+    0
+
+    <b><color=#00FF00>Cam Position:</color></b>
+
+    X: 0
+
+    Y: 0
+
+    Z:
+    0
+
+    <b><color=#00FF00>Cam Rotation:</color></b>
+
+    X: 0
+
+    Y: 0
+
+    Z:
+    0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1791,7 +1825,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2358,7 +2392,7 @@ Transform:
   m_GameObject: {fileID: 2009815758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 0, z: 2.5}
+  m_LocalPosition: {x: -3.5, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
