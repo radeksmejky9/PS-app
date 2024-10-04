@@ -42,6 +42,7 @@ public class Movement : MonoBehaviour
         currentCube.transform.position = cam.position;
         currentCube.transform.parent = Model;
         Assets.parent = currentCube.transform;
-        currentCube.transform.rotation = new quaternion(cam.rotation.x, cam.rotation.y + snappingPoints[0].rotation.y, cam.rotation.z, cam.rotation.w);
+        quaternion snappingPointRotation = quaternion.Euler(snappingPoints[0].eulerAngles);
+        currentCube.transform.rotation = snappingPointRotation * cam.rotation;
     }
 }
