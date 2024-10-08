@@ -4,28 +4,37 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class DebugText : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text debugText;
+    private GameObject debug;
+
     [SerializeField]
     private Transform assets;
     [SerializeField]
+    private TextMeshProUGUI debugText;
+
     private Transform cam;
+
+    private void Start()
+    {
+        cam = Camera.main.transform;
+    }
 
     void Update()
     {
         UpdateDebugText();
     }
 
-    public void ActivateDebugText()
+    public void ActivateDebug()
     {
-        debugText.gameObject.SetActive(!debugText.IsActive());
+        debug.SetActive(!debug.activeSelf);
     }
     private void UpdateDebugText()
     {
-        if (!debugText.IsActive()) return;
+        if (!debug.activeSelf) return;
 
         debugText.text = @$"<b><color=#FFD700>Assets Position:</color></b>
 X: {assets.position.x}
