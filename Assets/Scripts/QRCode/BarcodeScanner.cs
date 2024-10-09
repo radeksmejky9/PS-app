@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using Unity.Collections;
 using UnityEngine.XR.ARSubsystems;
-using TMPro;
 using System;
 
 public class BarcodeScanner : MonoBehaviour

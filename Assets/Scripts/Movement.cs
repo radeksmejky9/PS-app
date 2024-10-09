@@ -8,8 +8,6 @@ public class Movement : MonoBehaviour
 {
     [SerializeField]
     private Transform Assets;
-    [SerializeField]
-    private ARTrackedImageManager imageManager;
 
     private Transform cam;
     private GameObject currentCube;

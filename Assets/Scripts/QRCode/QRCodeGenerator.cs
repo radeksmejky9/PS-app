@@ -2,7 +2,6 @@ using UnityEngine;
 using ZXing;
 using ZXing.QrCode;
 using System.IO;
-using static UnityEditor.FilePathAttribute;
 
 [CreateAssetMenu(fileName = "NewQRCodeGenerator", menuName = "Utilities/QRCode Generator")]
 public class QRCodeGenerator : ScriptableObject

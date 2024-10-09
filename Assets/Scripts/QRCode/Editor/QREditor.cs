@@ -1,7 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Rendering.CameraUI;
-using UnityEngine.Windows;
 
 [CustomEditor(typeof(QRCodeGenerator))]
 public class QRCodeGeneratorEditor : Editor
