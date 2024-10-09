@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
+  m_Name: zasedacka-pc
+  m_EditorClassIdentifier: 
+  jsonString: "{\r\n        \"Name\": \"zasedacka - pc\",\r\n        \"Position\":
+    {\"X\": -0.58, \"Y\": -0.15, \"Z\": -0.8},\r\n        \"Rotation\": { \"X\":
+    0, \"Y\": 0, \"Z\": 0}}"
+  objectName: zasedacka - pc
+  positionX: -0.58
+  positionY: -0.15
+  positionZ: -0.8
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
+  qrCodeTexture: {fileID: 0}
