@@ -6,68 +6,147 @@ using UnityEngine.XR.ARFoundation;
 using Unity.Collections;
 using UnityEngine.XR.ARSubsystems;
 using System;
+using System.ComponentModel;
+using TMPro;
+using ZXing.QrCode.Internal;
 
 public class BarcodeScanner : MonoBehaviour
 {
-    public static Action<SnappingPoint> QRChanged;
-    public Image QRScannerPreview;
+    public static Action<SnappingPoint> QRScanned;
+
     public ARCameraManager CameraManager;
+    public TextMeshProUGUI scanningText;
 
-    private string QrCode = string.Empty;
+    [Range(1, 1920)]
+    public int previewWidth;
+    [Range(1, 1080)]
+    public int previewHeight;
 
-    void Start()
+    public bool ScanningMode
     {
-        StartCoroutine(GetQRCode());
+        get { return _scanningMode; }
+        private set
+        {
+            _qrCode = string.Empty;
+
+            if (value == true)
+            {
+                InitScanningArea();
+                StartCoroutine(GetQRCode());
+            }
+
+            scanningText.text = (value) ? "Stop Scanning" : "Scan";
+            _scanningMode = value;
+        }
     }
 
+
+    private bool _scanningMode = false;
+    private string _qrCode = string.Empty;
+    private RectInt _scanningArea;
+
+    private int x = 0;
+    private int y = 0;
+
+    private void Start()
+    {
+        x = Screen.width / 2 - previewWidth / 2;
+        y = Screen.height / 2 - previewHeight / 2;
+    }
+
+    public void SetScanningMode()
+    {
+        ScanningMode = !ScanningMode;
+    }
     private IEnumerator GetQRCode()
     {
         IBarcodeReader barCodeReader = new BarcodeReader();
-
-        while (string.IsNullOrEmpty(QrCode))
+        while (string.IsNullOrEmpty(_qrCode))
         {
             if (CameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
             {
-                var conversionParams = new XRCpuImage.ConversionParams
-                {
-                    inputRect = new RectInt(0, 0, image.width, image.height),
-                    outputDimensions = new Vector2Int(image.width, image.height),
-                    outputFormat = TextureFormat.RGBA32,
-                    transformation = XRCpuImage.Transformation.None
-                };
-
-                var cameraImageTexture = new Texture2D(image.width, image.height, TextureFormat.RGBA32, false);
-                var rawImageData = new NativeArray<byte>(image.GetConvertedDataSize(conversionParams), Allocator.Temp);
-                image.Convert(conversionParams, rawImageData);
-
-                cameraImageTexture.LoadRawTextureData(rawImageData);
-                cameraImageTexture.Apply();
-
-                rawImageData.Dispose();
-                image.Dispose();
-
+                var cameraImageTexture = GetImageTexture(image);
                 try
                 {
                     var Result = barCodeReader.Decode(cameraImageTexture.GetPixels32(), cameraImageTexture.width, cameraImageTexture.height);
                     if (Result != null)
                     {
-                        QrCode = Result.Text;
-                        if (!string.IsNullOrEmpty(QrCode))
+                        _qrCode = Result.Text;
+                        if (!string.IsNullOrEmpty(_qrCode))
                         {
-                            QRChanged?.Invoke(JsonUtility.FromJson<SnappingPoint>(QrCode));
-                            Debug.Log("DECODED TEXT FROM QR: " + QrCode);
-                            QRScannerPreview.gameObject.SetActive(false);
+                            QRScanned?.Invoke(JsonUtility.FromJson<SnappingPoint>(_qrCode));
+                            Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
+                            ScanningMode = false;
                             break;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning(ex.Message);
+                    Debug.Log("Failed to scan");
+                    Debug.LogError(ex.Message);
+                    _qrCode = string.Empty;
+                }
+                finally
+                {
+                    image.Dispose();
                 }
             }
-
             yield return null;
         }
     }
+    void OnGUI()
+    {
+        if (!ScanningMode) return;
+
+        Texture2D backgroundTexture = new Texture2D(1, 1);
+        backgroundTexture.SetPixel(0, 0, new Color(0, 0, 0, 0.5f));
+        backgroundTexture.Apply();
+
+        var style = new GUIStyle()
+        {
+            border = new RectOffset(0, 0, 0, 0),
+            normal = { background = backgroundTexture }
+        };
+
+        GUI.Box(new Rect(0, 0, Screen.width, _scanningArea.y), "", style);
+        GUI.Box(new Rect(0, _scanningArea.y + _scanningArea.height, Screen.width, Screen.height - (_scanningArea.y + _scanningArea.height)), "", style);
+        GUI.Box(new Rect(0, _scanningArea.y, _scanningArea.x, _scanningArea.height), "", style);
+        GUI.Box(new Rect(_scanningArea.x + _scanningArea.width, _scanningArea.y, Screen.width - (_scanningArea.x + _scanningArea.width), _scanningArea.height), "", style);
+    }
+
+    private void InitScanningArea()
+    {
+        _scanningArea = new RectInt(x, y, previewWidth, previewHeight);
+    }
+    private Texture2D GetImageTexture(XRCpuImage image)
+    {
+        int xOffset = image.width / 4;
+        int yOffset = image.height / 4;
+        int regionWidth = image.width / 2;
+        int regionHeight = image.height / 2;
+
+        var inputRect = new RectInt(xOffset, yOffset, regionWidth, regionHeight);
+        var outputDimensions = new Vector2Int(regionWidth / 2, regionHeight / 2);
+        var textureFormat = TextureFormat.ARGB32;
+
+        var conversionParams = new XRCpuImage.ConversionParams
+        {
+            inputRect = inputRect,
+            outputDimensions = outputDimensions,
+            outputFormat = textureFormat,
+            transformation = XRCpuImage.Transformation.None
+        };
+
+        var cameraImageTexture = new Texture2D(regionWidth / 2, regionHeight / 2, textureFormat, false);
+        var rawImageData = new NativeArray<byte>(image.GetConvertedDataSize(conversionParams), Allocator.Temp);
+        image.Convert(conversionParams, rawImageData);
+
+        cameraImageTexture.LoadRawTextureData(rawImageData);
+        cameraImageTexture.Apply();
+
+        rawImageData.Dispose();
+        return cameraImageTexture;
+    }
+
 }
