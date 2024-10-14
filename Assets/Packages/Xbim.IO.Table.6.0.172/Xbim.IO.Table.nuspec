@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Xbim.IO.Table</id>
+    <version>6.0.172</version>
+    <title>Xbim Table Store</title>
+    <authors>Steve Lockley, Martin Cerny and XBIMTeam Contributors</authors>
+    <owners>Steve Lockley, Martin Cerny and XBIMTeam Contributors</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">CDDL-1.0</license>
+    <licenseUrl>https://licenses.nuget.org/CDDL-1.0</licenseUrl>
+    <projectUrl>https://github.com/xBimTeam/XbimCobieExpress</projectUrl>
+    <iconUrl>https://avatars1.githubusercontent.com/u/2284875?v=3&amp;amp;s=240</iconUrl>
+    <description>Provides support for spreadsheet serialization/deserialization of data stored in xBIM model generated from EXPRESS schema</description>
+    <releaseNotes>Updated for v6 Essentials. Supports IFC 4x3</releaseNotes>
+    <copyright>Copyright © XBIM Ltd</copyright>
+    <tags>BIM, IFC, COBie, Express</tags>
+    <repository type="git" url="https://github.com/xBimTeam/XbimEssentials/tree/master" commit="81438ae3fcf1fbb656a8b6c056e78358c7ba9e62" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="DocumentFormat.OpenXml" version="3.0.2" exclude="Build,Analyzers" />
+        <dependency id="Xbim.Common" version="6.0.445" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="DocumentFormat.OpenXml" version="3.0.2" exclude="Build,Analyzers" />
+        <dependency id="Xbim.Common" version="6.0.445" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <icon>Icon.png</icon>
+  </metadata>
+</package>
