@@ -54,8 +54,6 @@ public class ModelManager : MonoBehaviour
                 mat = Undefined;
             }
             child.GetComponent<MeshRenderer>().material = mat;
-            var closest = child.AddComponent<closestgobj>();
-            closest.closest = gameojb;
         });
     }
 
