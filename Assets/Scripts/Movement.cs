@@ -17,49 +17,12 @@ public class Movement : MonoBehaviour
     private Transform cam;
     private GameObject currentCube;
     private Transform Model;
-
-    private Material[] materials;
-
     void Start()
     {
         Model = Assets.parent;
         cam = Camera.main.transform;
-        materials = LoadAllMaterials("Assets/Materials/IFC");
-        Load();
+
     }
-
-    public static Material[] LoadAllMaterials(string rootFolder)
-    {
-        string[] filePaths = Directory.GetFiles(rootFolder, "*.mat", SearchOption.AllDirectories);
-        Material[] materials = new Material[filePaths.Length];
-        for (int i = 0; i < filePaths.Length; i++)
-        {
-            string assetPath = filePaths[i].Replace(Application.dataPath, "Assets");
-            materials[i] = AssetDatabase.LoadAssetAtPath<Material>(assetPath);
-        }
-
-        return materials;
-    }
-
-    private void Load()
-    {
-        List<MeshRenderer> children = Assets.GetChild(0).GetChild(0).GetComponentsInChildren<MeshRenderer>().ToList();
-        children = IFCOpener.CleanModel(children);
-
-        var materialNames = materials.Select(material => material.name).ToList();
-        var dict = IFCOpener.OpenIFC(children, materialNames);
-        foreach (var material in materials) Debug.Log(material);
-
-        foreach (KeyValuePair<string, List<MeshRenderer>> sortedChildren in dict)
-        {
-            var material = materials.Where(material => material.name == sortedChildren.Key).FirstOrDefault();
-            sortedChildren.Value.ForEach(child =>
-            {
-                child.material = material;
-            });
-        }
-    }
-
     void OnEnable()
     {
         BarcodeScanner.QRScanned += Move;
@@ -91,6 +54,8 @@ public class Movement : MonoBehaviour
         Quaternion camYRotationOnly = Quaternion.Euler(0, camYRotation, 0);
         currentCube.transform.rotation = snappingPointRotation * camYRotationOnly;
         Assets.gameObject.SetActive(true);
+
+
     }
 
     private GameObject CreateAnchor()

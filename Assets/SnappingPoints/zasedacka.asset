@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
   m_Name: zasedacka
   m_EditorClassIdentifier: 
+  sp:
+    Name: 
+    Position:
+      X: 0
+      Y: 0
+      Z: 0
+    Rotation:
+      X: 0
+      Y: 0
+      Z: 0
   jsonString: "{\r\n      \"Name\": \"zasedacka\",\r\n      \"Position\": {\r\n       
     \"X\": -3.5,\r\n        \"Y\": -0.15,\r\n        \"Z\": 2.75\r\n      },\r\n     
     \"Rotation\": {\r\n        \"X\": 0.0,\r\n        \"Y\": 0.0,\r\n        \"Z\":

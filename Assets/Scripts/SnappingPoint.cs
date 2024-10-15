@@ -15,34 +15,47 @@ public struct SnappingPoint
         Position = new PositionData(x, y, z);
         Rotation = new RotationData(xRotation, yRotation, zRotation);
     }
-
-    [System.Serializable]
-    public struct PositionData
+    public SnappingPoint(string name = "")
     {
-        public float X;
-        public float Y;
-        public float Z;
-
-        public PositionData(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
+        Name = name;
+        Position = new PositionData(0, 0, 0);
+        Rotation = new RotationData(0, 0, 0);
+    }
+    public SnappingPoint(string name, PositionData posistion, RotationData rotation)
+    {
+        Name = name;
+        Position = posistion;
+        Rotation = rotation;
     }
 
-    [System.Serializable]
-    public struct RotationData
-    {
-        public float X;
-        public float Y;
-        public float Z;
 
-        public RotationData(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
+}
+[System.Serializable]
+public struct PositionData
+{
+    public float X;
+    public float Y;
+    public float Z;
+
+    public PositionData(float x, float y, float z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
+    }
+}
+
+[System.Serializable]
+public struct RotationData
+{
+    public float X;
+    public float Y;
+    public float Z;
+
+    public RotationData(float x, float y, float z)
+    {
+        X = x;
+        Y = y;
+        Z = z;
     }
 }

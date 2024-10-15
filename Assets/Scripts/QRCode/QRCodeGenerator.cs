@@ -2,12 +2,14 @@ using UnityEngine;
 using ZXing;
 using ZXing.QrCode;
 using System.IO;
+using Newtonsoft.Json;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 [CreateAssetMenu(fileName = "NewQRCodeGenerator", menuName = "Utilities/QRCode Generator")]
 public class QRCodeGenerator : ScriptableObject
 {
-    // Prefilled JSON string
-    [TextArea(5, 13)]
+    public SnappingPoint sp;
+
     public string jsonString = @"{
       ""Name"": ""mistnost"",
       ""Position"": {
@@ -22,10 +24,10 @@ public class QRCodeGenerator : ScriptableObject
       }
     }";
 
-    public string objectName = "zasedacka";
-    public float positionX = -3.5f;
-    public float positionY = -0.15f;
-    public float positionZ = 2.75f;
+    public string objectName = "mistnost";
+    public float positionX = 0.0f;
+    public float positionY = 0.0f;
+    public float positionZ = 0.0f;
     public float rotationX = 0.0f;
     public float rotationY = 0.0f;
     public float rotationZ = 0.0f;
@@ -34,15 +36,18 @@ public class QRCodeGenerator : ScriptableObject
 
     public void UpdateJSONFromFields()
     {
-        jsonString = $@"{{
-        ""Name"": ""{objectName}"",
-        ""Position"": {{""X"": {positionX}, ""Y"": {positionY}, ""Z"": {positionZ}}},
-        ""Rotation"": {{ ""X"": {rotationX}, ""Y"": {rotationY}, ""Z"": {rotationZ}}}}}";
+        sp = new SnappingPoint(
+            objectName,
+            new PositionData(positionX, positionY, positionZ),
+            new RotationData(rotationX, rotationY, rotationZ));
+
+        jsonString = JsonConvert.SerializeObject(sp, Formatting.Indented);
+
     }
 
     public void GenerateQR()
     {
-        qrCodeTexture = GenerateQRFromJSON(jsonString);
+        qrCodeTexture = GenerateQRFromJSON(JsonConvert.SerializeObject(sp));
     }
 
     public void SaveQRCode(string path)

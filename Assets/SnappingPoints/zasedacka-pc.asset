@@ -12,9 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
   m_Name: zasedacka-pc
   m_EditorClassIdentifier: 
-  jsonString: "{\r\n        \"Name\": \"zasedacka - pc\",\r\n        \"Position\":
-    {\"X\": -0.58, \"Y\": -0.15, \"Z\": -0.8},\r\n        \"Rotation\": { \"X\":
-    0, \"Y\": 0, \"Z\": 0}}"
+  sp:
+    Name: zasedacka - pc
+    Position:
+      X: -0.58
+      Y: -0.15
+      Z: -0.8
+    Rotation:
+      X: 0
+      Y: 0
+      Z: 0
+  jsonString: "{\r\n  \"Name\": \"zasedacka - pc\",\r\n  \"Position\": {\r\n    \"X\":
+    -0.58,\r\n    \"Y\": -0.15,\r\n    \"Z\": -0.8\r\n  },\r\n  \"Rotation\": {\r\n   
+    \"X\": 0.0,\r\n    \"Y\": 0.0,\r\n    \"Z\": 0.0\r\n  }\r\n}"
   objectName: zasedacka - pc
   positionX: -0.58
   positionY: -0.15

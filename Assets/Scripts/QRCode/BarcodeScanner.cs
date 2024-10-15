@@ -9,6 +9,7 @@ using System;
 using System.ComponentModel;
 using TMPro;
 using ZXing.QrCode.Internal;
+using Newtonsoft.Json;
 
 public class BarcodeScanner : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public class BarcodeScanner : MonoBehaviour
                         _qrCode = Result.Text;
                         if (!string.IsNullOrEmpty(_qrCode))
                         {
-                            QRScanned?.Invoke(JsonUtility.FromJson<SnappingPoint>(_qrCode));
+                            QRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode));
                             Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
                             ScanningMode = false;
                             break;

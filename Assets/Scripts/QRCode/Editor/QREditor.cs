@@ -35,37 +35,42 @@ public class QRCodeGeneratorEditor : Editor
 
         qrGenerator.objectName = EditorGUILayout.TextField("Name", qrGenerator.objectName);
 
+        // Position - X, Y, Z in one row
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Position", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("X", GUILayout.Width(10));
-        qrGenerator.positionX = EditorGUILayout.FloatField(qrGenerator.positionX, GUILayout.Width(50));
-        GUILayout.Label("Y", GUILayout.Width(10));
-        qrGenerator.positionY = EditorGUILayout.FloatField(qrGenerator.positionY, GUILayout.Width(50));
-        GUILayout.Label("Z", GUILayout.Width(10));
-        qrGenerator.positionZ = EditorGUILayout.FloatField(qrGenerator.positionZ, GUILayout.Width(50));
+        qrGenerator.positionX = DraggableFloatField("X", qrGenerator.positionX);
+        qrGenerator.positionY = DraggableFloatField("Y", qrGenerator.positionY);
+        qrGenerator.positionZ = DraggableFloatField("Z", qrGenerator.positionZ);
         EditorGUILayout.EndHorizontal();
 
+        // Rotation - X, Y, Z in one row
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Rotation", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("X", GUILayout.Width(10));
-        qrGenerator.rotationX = EditorGUILayout.FloatField(qrGenerator.rotationX, GUILayout.Width(50));
-        GUILayout.Label("Y", GUILayout.Width(10));
-        qrGenerator.rotationY = EditorGUILayout.FloatField(qrGenerator.rotationY, GUILayout.Width(50));
-        GUILayout.Label("Z", GUILayout.Width(10));
-        qrGenerator.rotationZ = EditorGUILayout.FloatField(qrGenerator.rotationZ, GUILayout.Width(50));
+        qrGenerator.rotationX = DraggableFloatField("X", qrGenerator.rotationX);
+        qrGenerator.rotationY = DraggableFloatField("Y", qrGenerator.rotationY);
+        qrGenerator.rotationZ = DraggableFloatField("Z", qrGenerator.rotationZ);
         EditorGUILayout.EndHorizontal();
 
         if (EditorGUI.EndChangeCheck())
             qrGenerator.UpdateJSONFromFields();
-
     }
+
+    // Helper function to create aligned draggable float fields in one row
+    private float DraggableFloatField(string label, float value)
+    {
+        EditorGUIUtility.labelWidth = 10;  // Adjust the label width to fit
+        value = EditorGUILayout.FloatField(label, value, GUILayout.Width(60));  // Make sure each float field has the same width for alignment
+        return value;
+    }
+
+
 
     private void OnUseJSONEditor()
     {
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(150));
-        qrGenerator.jsonString = EditorGUILayout.TextArea(qrGenerator.jsonString, GUILayout.Height(150));
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(200));
+        qrGenerator.jsonString = EditorGUILayout.TextArea(qrGenerator.jsonString, GUILayout.Height(200));
         EditorGUILayout.EndScrollView();
     }
 
