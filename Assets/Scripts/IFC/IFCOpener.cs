@@ -11,7 +11,7 @@ using Xbim.Ifc2x3.SharedBldgServiceElements;
 
 public class IFCOpener
 {
-    public static Dictionary<string, List<MeshRenderer>> OpenIFC(List<MeshRenderer> children, List<string> wordsToMatch)
+    public static Dictionary<string, List<MeshRenderer>> GetPipes(List<MeshRenderer> children, List<string> wordsToMatch)
     {
         string pattern = @"(?:Pipe Types|DuctSegment):([^:]+):";
 
@@ -39,12 +39,33 @@ public class IFCOpener
             }
         }
 
-        foreach (var kvp in sortedChildren)
+        return sortedChildren;
+    }
+
+    public static List<GameObject> GetConnections(List<MeshRenderer> children)
+    {
+        List<GameObject> connectionChildren = new List<GameObject>();
+        string[] wordsToMatch = new string[] { "FlowFitting" };
+        for (int i = children.Count - 1; i >= 0; i--)
         {
-            Debug.Log($"{kvp.Key}: {kvp.Value.Count}");
+            if (wordsToMatch.Any(children[i].name.Contains))
+                connectionChildren.Add(children[i].gameObject);
         }
 
-        return sortedChildren;
+        return connectionChildren;
+    }
+
+    public static List<GameObject> GetSegments(List<MeshRenderer> children)
+    {
+        List<GameObject> connectionChildren = new List<GameObject>();
+        string[] wordsToMatch = new string[] { "FlowSegment" };
+        for (int i = children.Count - 1; i >= 0; i--)
+        {
+            if (wordsToMatch.Any(children[i].name.Contains))
+                connectionChildren.Add(children[i].gameObject);
+        }
+
+        return connectionChildren;
     }
 
     public static List<MeshRenderer> CleanModel(List<MeshRenderer> children)
