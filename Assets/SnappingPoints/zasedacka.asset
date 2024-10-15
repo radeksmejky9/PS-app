@@ -13,23 +13,22 @@ MonoBehaviour:
   m_Name: zasedacka
   m_EditorClassIdentifier: 
   sp:
-    Name: 
+    Name: zasedacka
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: 4
+      Y: -0.15
+      Z: -5
     Rotation:
       X: 0
       Y: 0
       Z: 0
-  jsonString: "{\r\n      \"Name\": \"zasedacka\",\r\n      \"Position\": {\r\n       
-    \"X\": -3.5,\r\n        \"Y\": -0.15,\r\n        \"Z\": 2.75\r\n      },\r\n     
-    \"Rotation\": {\r\n        \"X\": 0.0,\r\n        \"Y\": 0.0,\r\n        \"Z\":
-    0.0\r\n      }\r\n    }"
+  jsonString: "{\r\n  \"Name\": \"zasedacka\",\r\n  \"Position\": {\r\n    \"X\":
+    4.0,\r\n    \"Y\": -0.15,\r\n    \"Z\": -5.0\r\n  },\r\n  \"Rotation\": {\r\n   
+    \"X\": 0.0,\r\n    \"Y\": 0.0,\r\n    \"Z\": 0.0\r\n  }\r\n}"
   objectName: zasedacka
-  positionX: -3.5
+  positionX: 4
   positionY: -0.15
-  positionZ: 2.75
+  positionZ: -5
   rotationX: 0
   rotationY: 0
   rotationZ: 0
