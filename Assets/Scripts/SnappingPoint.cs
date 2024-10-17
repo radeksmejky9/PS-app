@@ -5,27 +5,36 @@ using UnityEngine;
 [System.Serializable]
 public struct SnappingPoint
 {
-    public string Name;
+    public string Building;
+    public string Room;
     public PositionData Position;
     public RotationData Rotation;
 
-    public SnappingPoint(string name = "", float x = 0, float y = 0, float z = 0, float xRotation = 0, float yRotation = 0, float zRotation = 0)
+    public string Url;
+
+    public SnappingPoint(string building = "", string room = "", float x = 0, float y = 0, float z = 0, float xRotation = 0, float yRotation = 0, float zRotation = 0, string url = "")
     {
-        Name = name;
+        Building = building;
+        Room = room;
         Position = new PositionData(x, y, z);
         Rotation = new RotationData(xRotation, yRotation, zRotation);
+        Url = url;
     }
-    public SnappingPoint(string name = "")
+    public SnappingPoint(string building = "", string room = "", string url = "")
     {
-        Name = name;
+        Building = building;
+        Room = room;
         Position = new PositionData(0, 0, 0);
         Rotation = new RotationData(0, 0, 0);
+        Url = url;
     }
-    public SnappingPoint(string name, PositionData posistion, RotationData rotation)
+    public SnappingPoint(string building, string name, PositionData posistion, RotationData rotation, string url)
     {
-        Name = name;
+        Building = building;
+        Room = name;
         Position = posistion;
         Rotation = rotation;
+        Url = url;
     }
 
 

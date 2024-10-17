@@ -13,23 +13,28 @@ MonoBehaviour:
   m_Name: zasedacka
   m_EditorClassIdentifier: 
   sp:
-    Name: zasedacka
+    Building: DCUK
+    Room: zasedacka-vypinac
     Position:
-      X: 4
-      Y: -0.15
-      Z: -5
+      X: -8
+      Y: 1.7
+      Z: 1.7
     Rotation:
       X: 0
-      Y: 0
+      Y: 180
       Z: 0
-  jsonString: "{\r\n  \"Name\": \"zasedacka\",\r\n  \"Position\": {\r\n    \"X\":
-    4.0,\r\n    \"Y\": -0.15,\r\n    \"Z\": -5.0\r\n  },\r\n  \"Rotation\": {\r\n   
-    \"X\": 0.0,\r\n    \"Y\": 0.0,\r\n    \"Z\": 0.0\r\n  }\r\n}"
-  objectName: zasedacka
-  positionX: 4
-  positionY: -0.15
-  positionZ: -5
+    Url: https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx
+  jsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"zasedacka-vypinac\",\r\n 
+    \"Position\": {\r\n    \"X\": -8.0,\r\n    \"Y\": 1.7,\r\n    \"Z\": 1.7\r\n 
+    },\r\n  \"Rotation\": {\r\n    \"X\": 0.0,\r\n    \"Y\": 180.0,\r\n    \"Z\":
+    0.0\r\n  },\r\n  \"Url\": \"https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx\"\r\n}"
+  building: DCUK
+  room: zasedacka-vypinac
+  positionX: -8
+  positionY: 1.7
+  positionZ: 1.7
   rotationX: 0
-  rotationY: 0
+  rotationY: 180
   rotationZ: 0
+  url: https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx
   qrCodeTexture: {fileID: 0}

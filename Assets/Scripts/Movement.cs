@@ -21,7 +21,6 @@ public class Movement : MonoBehaviour
     {
         Model = Assets.parent;
         cam = Camera.main.transform;
-
     }
     void OnEnable()
     {

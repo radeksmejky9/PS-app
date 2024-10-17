@@ -32,10 +32,9 @@ public class QRCodeGeneratorEditor : Editor
     private void OnUseFields()
     {
         EditorGUI.BeginChangeCheck();
+        qrGenerator.building = EditorGUILayout.TextField("Building", qrGenerator.building);
+        qrGenerator.room = EditorGUILayout.TextField("Room", qrGenerator.room);
 
-        qrGenerator.objectName = EditorGUILayout.TextField("Name", qrGenerator.objectName);
-
-        // Position - X, Y, Z in one row
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Position", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
@@ -44,7 +43,6 @@ public class QRCodeGeneratorEditor : Editor
         qrGenerator.positionZ = DraggableFloatField("Z", qrGenerator.positionZ);
         EditorGUILayout.EndHorizontal();
 
-        // Rotation - X, Y, Z in one row
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Rotation", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace();
@@ -52,16 +50,17 @@ public class QRCodeGeneratorEditor : Editor
         qrGenerator.rotationY = DraggableFloatField("Y", qrGenerator.rotationY);
         qrGenerator.rotationZ = DraggableFloatField("Z", qrGenerator.rotationZ);
         EditorGUILayout.EndHorizontal();
+        qrGenerator.url = EditorGUILayout.TextField("Url", qrGenerator.url);
+
 
         if (EditorGUI.EndChangeCheck())
             qrGenerator.UpdateJSONFromFields();
     }
 
-    // Helper function to create aligned draggable float fields in one row
     private float DraggableFloatField(string label, float value)
     {
-        EditorGUIUtility.labelWidth = 10;  // Adjust the label width to fit
-        value = EditorGUILayout.FloatField(label, value, GUILayout.Width(60));  // Make sure each float field has the same width for alignment
+        EditorGUIUtility.labelWidth = 10;
+        value = EditorGUILayout.FloatField(label, value, GUILayout.Width(60));
         return value;
     }
 
@@ -69,8 +68,8 @@ public class QRCodeGeneratorEditor : Editor
 
     private void OnUseJSONEditor()
     {
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(200));
-        qrGenerator.jsonString = EditorGUILayout.TextArea(qrGenerator.jsonString, GUILayout.Height(200));
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(500));
+        qrGenerator.jsonString = EditorGUILayout.TextArea(qrGenerator.jsonString, GUILayout.Height(500));
         EditorGUILayout.EndScrollView();
     }
 

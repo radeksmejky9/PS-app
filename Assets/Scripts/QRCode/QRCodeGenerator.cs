@@ -11,20 +11,25 @@ public class QRCodeGenerator : ScriptableObject
     public SnappingPoint sp;
 
     public string jsonString = @"{
-      ""Name"": ""mistnost"",
-      ""Position"": {
-        ""X"": 0.0,
-        ""Y"": 0.0,
-        ""Z"": 0.0
-      },
-      ""Rotation"": {
-        ""X"": 0.0,
-        ""Y"": 0.0,
-        ""Z"": 0.0
-      }
+        ""Building"": ""DCUK"",
+        ""Room"": ""Mistnost"",
+        ""Position"": {
+            ""X"": 0.0,
+            ""Y"": 0.0,
+            ""Z"": 0.0
+        },
+        ""Rotation"": {
+            ""X"": 0.0,
+            ""Y"": 0.0,
+            ""Z"": 0.0
+        }
+        ""FBX"": {
+            ""url"": ""https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx"",
+        }
     }";
 
-    public string objectName = "mistnost";
+    public string building = "DCUK";
+    public string room = "mistnost";
     public float positionX = 0.0f;
     public float positionY = 0.0f;
     public float positionZ = 0.0f;
@@ -32,14 +37,19 @@ public class QRCodeGenerator : ScriptableObject
     public float rotationY = 0.0f;
     public float rotationZ = 0.0f;
 
+    public string url = "https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx";
+
+
     public Texture2D qrCodeTexture;
 
     public void UpdateJSONFromFields()
     {
         sp = new SnappingPoint(
-            objectName,
+            building,
+            room,
             new PositionData(positionX, positionY, positionZ),
-            new RotationData(rotationX, rotationY, rotationZ));
+            new RotationData(rotationX, rotationY, rotationZ),
+            url);
 
         jsonString = JsonConvert.SerializeObject(sp, Formatting.Indented);
 
@@ -62,8 +72,7 @@ public class QRCodeGenerator : ScriptableObject
         File.WriteAllBytes(path, bytes);
         Debug.Log($"QR Code saved to: {path}");
     }
-
-    private Texture2D GenerateQRFromJSON(string jsonString, int width = 256, int height = 256)
+    private Texture2D GenerateQRFromJSON(string jsonString, int width = 2048, int height = 2048)
     {
         BarcodeWriter writer = new BarcodeWriter
         {
