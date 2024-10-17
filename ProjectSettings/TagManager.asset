@@ -3,7 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Equipment
+  - Lightning
+  - FireWater
+  - ExhaustAir
+  - HydroGeoReturn
+  - HydroGeoSupply
+  - ReturnAir
+  - SupplyAir
+  - ColdWater
+  - Gas
+  - HotWater
+  - PVC
+  - Storm
+  - Vent
+  - Waste
+  - Concrete
+  - Steel
+  - Undefined
   layers:
   - Default
   - TransparentFX

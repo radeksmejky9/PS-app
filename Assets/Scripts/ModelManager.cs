@@ -8,14 +8,17 @@ using UnityEngine;
 public class ModelManager : MonoBehaviour
 {
     private Transform model;
-    [SerializeField]
-    private Material[] materials;
+
     [SerializeField]
     private Material Undefined;
+
+    [SerializeField]
+    private Category[] categories;
 
     private void OnEnable()
     {
         model = GetComponent<Transform>();
+        categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
         Load();
     }
 
@@ -29,12 +32,12 @@ public class ModelManager : MonoBehaviour
         var connectionChildren = IFCOpener.GetConnections(children);
         var segmentChildren = IFCOpener.GetSegments(children);
 
-        var materialNames = materials.Select(material => material.name).ToList();
+        var materialNames = categories.Select(category => category.material.name).ToList();
         var dict = IFCOpener.GetPipes(children, materialNames);
 
         foreach (KeyValuePair<string, List<MeshRenderer>> sortedChildren in dict)
         {
-            var material = materials.Where(material => material.name == sortedChildren.Key).FirstOrDefault();
+            var material = categories.Where(category => category.material.name == sortedChildren.Key).FirstOrDefault().material;
             sortedChildren.Value.ForEach(child =>
             {
                 child.material = material;

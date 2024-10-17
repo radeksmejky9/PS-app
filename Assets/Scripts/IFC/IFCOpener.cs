@@ -22,13 +22,13 @@ public class IFCOpener
             Match match = Regex.Match(child.gameObject.name, pattern);
             if (!match.Success) continue;
 
-            string type = match.Groups[1].Value.Replace(" ", "");
-            if (Array.Exists(wordsToMatch.ToArray(), word => string.Equals(word, type, StringComparison.OrdinalIgnoreCase)))
+            string pipeType = match.Groups[1].Value.Replace(" ", "");
+            if (Array.Exists(wordsToMatch.ToArray(), word => string.Equals(word, pipeType, StringComparison.OrdinalIgnoreCase)))
             {
-                if (sortedChildren.ContainsKey(type))
-                    sortedChildren[type].Add(child);
+                if (sortedChildren.ContainsKey(pipeType))
+                    sortedChildren[pipeType].Add(child);
                 else
-                    sortedChildren[type] = new List<MeshRenderer>() { child };
+                    sortedChildren[pipeType] = new List<MeshRenderer>() { child };
             }
             else
             {
