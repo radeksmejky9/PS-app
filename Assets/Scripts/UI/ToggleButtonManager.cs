@@ -7,10 +7,8 @@ public class ToggleButtonManager : MonoBehaviour
     public Action<Category, bool> CategoryToggled;
     public Transform parent;
     public ToggleButton tgButtonPrefab;
-    public RectTransform viewport;
 
     private Category[] categories;
-    private float height = 0;
 
     private void Start()
     {
@@ -25,11 +23,7 @@ public class ToggleButtonManager : MonoBehaviour
             ToggleButton toggleObj = Instantiate(tgButtonPrefab, parent);
             toggleObj.Label.text = category.ToString();
             toggleObj.category = category;
-            height += toggleObj.height;
-
         }
-        RectTransform viewportRect = viewport.GetComponent<RectTransform>();
-        viewportRect.sizeDelta = new Vector2(viewportRect.sizeDelta.x, height);
 
     }
 }
