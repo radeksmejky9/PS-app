@@ -1,63 +1,53 @@
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ModelManager : MonoBehaviour
 {
-    private Transform model;
+    public Transform model;
 
-    [SerializeField]
-    private Material Undefined;
+    private ModelData modelData;
 
     [SerializeField]
     private Category[] categories;
 
     private void OnEnable()
     {
-        model = GetComponent<Transform>();
         categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
-        Load();
+        modelData = new ModelData(model.gameObject, categories: categories);
+        ToggleButtonManager.CategoryToggled += OnCategoryToggled;
     }
 
-    private void Load()
+    private void OnDisable()
     {
-        List<MeshRenderer> children = model.GetComponentsInChildren<MeshRenderer>().ToList();
+        ToggleButtonManager.CategoryToggled -= OnCategoryToggled;
+    }
 
-        children = IFCOpener.CleanModel(children);
-        children.ForEach(child => child.AddComponent<BoxCollider>());
-
-        var connectionChildren = IFCOpener.GetConnections(children);
-        var segmentChildren = IFCOpener.GetSegments(children);
-
-        var materialNames = categories.Select(category => category.material.name).ToList();
-        var dict = IFCOpener.GetPipes(children, materialNames);
-
-        foreach (KeyValuePair<string, List<MeshRenderer>> sortedChildren in dict)
+    private void OnCategoryToggled(Category category, bool isActive)
+    {
+        if (isActive)
         {
-            var material = categories.Where(category => category.material.name == sortedChildren.Key).FirstOrDefault().material;
-            sortedChildren.Value.ForEach(child =>
-            {
-                child.material = material;
-            });
+
+            modelData.Filter.Add(category);
+        }
+        else
+        {
+            modelData.Filter.Remove(category);
+        }
+        UpdateVisibility();
+    }
+    private void UpdateVisibility()
+    {
+        foreach (var pipe in modelData.Pipes)
+        {
+            pipe.gameObject.SetActive(modelData.Filter.Contains(pipe.Category));
         }
 
-        connectionChildren.ForEach(child =>
+        modelData.Filter.ForEach(filter => { Debug.Log(filter); });
+        foreach (var fitting in modelData.Fittings)
         {
-            var gameojb = child.GetClosestSegment(segmentChildren.ToArray());
-            Material mat;
-            if (gameojb != null && gameojb.TryGetComponent<MeshRenderer>(out var material))
-            {
-                mat = material.material;
-            }
-            else
-            {
-                mat = Undefined;
-            }
-            child.GetComponent<MeshRenderer>().material = mat;
-        });
+            fitting.gameObject.SetActive(modelData.Filter.Contains(fitting.Category));
+        }
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToggleButtonManager : MonoBehaviour
 {
-    public Action<Category, bool> CategoryToggled;
+    public static Action<Category, bool> CategoryToggled;
     public Transform parent;
     public ToggleButton tgButtonPrefab;
 
@@ -16,14 +16,19 @@ public class ToggleButtonManager : MonoBehaviour
         CreateCategoryMenu();
     }
 
-    void CreateCategoryMenu()
+    private void CreateCategoryMenu()
     {
         foreach (var category in categories)
         {
             ToggleButton toggleObj = Instantiate(tgButtonPrefab, parent);
             toggleObj.Label.text = category.ToString();
             toggleObj.category = category;
+            toggleObj.OnToggleChanged += OnCategoryToggle;
         }
 
+    }
+    private void OnCategoryToggle(Category category, bool isToggled)
+    {
+        CategoryToggled?.Invoke(category, isToggled);
     }
 }

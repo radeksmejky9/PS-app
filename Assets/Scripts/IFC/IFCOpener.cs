@@ -10,6 +10,7 @@ using Xbim.Ifc2x3.Kernel;
 using Xbim.Ifc2x3.SharedBldgServiceElements;
 
 public class IFCOpener
+
 {
     public static Dictionary<string, List<MeshRenderer>> GetPipes(List<MeshRenderer> children, List<string> wordsToMatch)
     {
@@ -66,18 +67,6 @@ public class IFCOpener
         }
 
         return connectionChildren;
-    }
-
-    public static List<MeshRenderer> CleanModel(List<MeshRenderer> children)
-    {
-        string[] wordsToMatch = new string[] { "FlowSegment", "FlowFitting" };
-        for (int i = children.Count - 1; i >= 0; i--)
-        {
-            if (!wordsToMatch.Any(children[i].name.Contains))
-                GameObject.Destroy(children[i].gameObject);
-        }
-
-        return children;
     }
 }
 

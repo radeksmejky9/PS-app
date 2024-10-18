@@ -1,56 +1,54 @@
-using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class Extensions
 {
-    public static GameObject GetClosestSegment(this GameObject source, GameObject[] segments)
+    public static Pipe GetClosestPipe(this Transform source, Pipe[] pipes)
     {
         float sphereRadius = 0.001f;
         float maxRadius = 1.0f;
         float radiusIncrement = 0.001f;
 
-        Vector3 sourcePosition = source.transform.position;
+        Vector3 sourcePosition = source.position;
 
-        GameObject closestObject = null;
+        Pipe closestObject = null;
         float closestDistance = Mathf.Infinity;
 
-        while (closestObject == null && sphereRadius <= maxRadius)
-        {
 
+        Collider[] initialHitColliders = Physics.OverlapSphere(sourcePosition, maxRadius);
+        if (initialHitColliders.Length == 0)
+        {
+            return null;
+        }
+
+        while (sphereRadius <= maxRadius)
+        {
             Collider[] hitColliders = Physics.OverlapSphere(sourcePosition, sphereRadius);
 
             foreach (Collider collider in hitColliders)
             {
-                GameObject hitObject = collider.gameObject;
+                Pipe hitPipe = collider.GetComponent<Pipe>(); // Assuming Pipe is a component on the GameObject
 
-                if (System.Array.Exists(segments, segment => segment == hitObject))
+                if (hitPipe != null && System.Array.Exists(pipes, pipe => pipe == hitPipe))
                 {
-                    Vector3 directionToTarget = hitObject.transform.position - sourcePosition;
+                    Vector3 directionToTarget = hitPipe.transform.position - sourcePosition;
                     float dSqrToTarget = directionToTarget.sqrMagnitude;
-                    //float distance = Vector3.Distance(source.transform.position, hitObject.transform.position);
 
                     if (dSqrToTarget < closestDistance)
                     {
                         closestDistance = dSqrToTarget;
-                        closestObject = hitObject;
+                        closestObject = hitPipe;
                     }
                 }
             }
 
-            if (closestObject == null)
-            {
-                sphereRadius += radiusIncrement;
-            }
+            if (closestObject != null) return closestObject;
+            sphereRadius += radiusIncrement;
         }
 
-
-        /*var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = source.transform.position;
-        sphere.transform.localScale = new Vector3(sphereRadius * 2, sphereRadius * 2, sphereRadius * 2);*/
-
-        return closestObject;
+        return null;
     }
 
     public static Vector2 Abs(this Vector2 _vector)
