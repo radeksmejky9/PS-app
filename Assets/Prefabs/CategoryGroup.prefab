@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Trubky
+  m_text: Type
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -494,10 +494,16 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+  m_IsOn: 1
+  FullSprite: {fileID: 21300000, guid: 347424c70381bb44da8c54ea4a06cbcc, type: 3}
+  PartialSprite: {fileID: 21300000, guid: 9e8c0d07a903aab4f8fa2c67f2b6b65c, type: 3}
+  EmptySprite: {fileID: 21300000, guid: ca07ee04638400143875bc1c1a2174b4, type: 3}
+  CheckImage: {fileID: 3725537364479328008}
+  BackgroundImage: {fileID: 6626106929494206271}
   Label: {fileID: 1040367061424743249}
   categoryGroup: {fileID: 0}
   Content: {fileID: 2215254392162792716}
+  toggleButtons: []
 --- !u!1 &5779718690501945976
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +513,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4056945513546822807}
-  - component: {fileID: 8329237500728476149}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -535,57 +540,6 @@ RectTransform:
   m_AnchoredPosition: {x: 52.5, y: -52.5}
   m_SizeDelta: {x: 105, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8329237500728476149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5779718690501945976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dd019f24e103dd488db4aa207e409a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 6626106929494206271}
-  toggleTransition: 1
-  graphic: {fileID: 3725537364479328008}
-  m_Group: {fileID: 0}
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 1
-  Label: {fileID: 0}
-  categoryGroup: {fileID: 0}
-  Content: {fileID: 0}
 --- !u!1 &7135985929392547741
 GameObject:
   m_ObjectHideFlags: 0

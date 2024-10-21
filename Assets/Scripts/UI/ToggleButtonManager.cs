@@ -6,7 +6,6 @@ using UnityEngine;
 public class ToggleButtonManager : MonoBehaviour
 {
     public static Action<Category, bool> CategoryToggled;
-    public static Action<CategoryGroup, bool> CategoryGroupToggled;
     public Transform parent;
 
     public ToggleButton tgButtonPrefab;
@@ -14,6 +13,9 @@ public class ToggleButtonManager : MonoBehaviour
 
     private Category[] categories;
     private CategoryGroup[] categoryGroups;
+
+    private List<ToggleGroupButton> toggleCategoryButtons = new List<ToggleGroupButton>();
+    private List<ToggleButton> toggleButtons = new List<ToggleButton>();
 
     private void Start()
     {
@@ -29,6 +31,8 @@ public class ToggleButtonManager : MonoBehaviour
             ToggleGroupButton groupToggleObj = Instantiate(tgGroupButtonPrefab, parent);
             groupToggleObj.Label.text = group.ToString();
             groupToggleObj.OnToggledGroup += OnCategoryGroupToggled;
+            groupToggleObj.categoryGroup = group;
+            toggleCategoryButtons.Add(groupToggleObj);
 
             foreach (var category in categories)
             {
@@ -39,7 +43,8 @@ public class ToggleButtonManager : MonoBehaviour
                 toggleObj.category = category;
                 toggleObj.categoryGroup = category.categoryGroup;
                 toggleObj.OnToggleChanged += OnCategoryToggle;
-                //toggleObj.transform.localPosition = Vector3.zero;
+                toggleButtons.Add(toggleObj);
+                groupToggleObj.toggleButtons.Add(toggleObj);
             }
         }
 
@@ -52,15 +57,24 @@ public class ToggleButtonManager : MonoBehaviour
             toggleObj.category = category;
             toggleObj.categoryGroup = null;
             toggleObj.OnToggleChanged += OnCategoryToggle;
+            toggleButtons.Add(toggleObj);
         }
     }
 
-    private void OnCategoryToggle(Category category, bool isToggled)
+    private void OnCategoryToggle(Category category, CategoryGroup categoryGroup, bool isToggled)
     {
         CategoryToggled?.Invoke(category, isToggled);
+        toggleCategoryButtons.ForEach(button =>
+        {
+            if (button.categoryGroup == categoryGroup)
+            {
+                button.ChangeState();
+            }
+        });
     }
-    private void OnCategoryGroupToggled(CategoryGroup group, bool isToggled)
+    private void OnCategoryGroupToggled(ToggleGroupButton groupButton, bool isToggled)
     {
-        CategoryGroupToggled?.Invoke(group, isToggled);
+        groupButton.toggleButtons.ForEach(button => button.isOn = isToggled);
+        groupButton.ChangeState();
     }
 }

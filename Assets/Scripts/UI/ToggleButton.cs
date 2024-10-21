@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ToggleButton : Toggle
 {
-    public event Action<Category, bool> OnToggleChanged;
+    public event Action<Category, CategoryGroup, bool> OnToggleChanged;
     public TextMeshProUGUI Label;
     public Category category;
     public CategoryGroup categoryGroup;
@@ -17,6 +17,6 @@ public class ToggleButton : Toggle
 
     private void OnToggleValueChanged(bool isToggled)
     {
-        OnToggleChanged?.Invoke(category, isToggled);
+        OnToggleChanged?.Invoke(category, categoryGroup, isToggled);
     }
 }
