@@ -16,7 +16,6 @@ public class BarcodeScanner : MonoBehaviour
     public static Action<SnappingPoint> QRScanned;
 
     public ARCameraManager CameraManager;
-    public TextMeshProUGUI scanningText;
 
     [Range(1, 1920)]
     public int previewWidth;
@@ -36,7 +35,6 @@ public class BarcodeScanner : MonoBehaviour
                 StartCoroutine(GetQRCode());
             }
 
-            scanningText.text = (value) ? "Stop Scanning" : "Scan";
             _scanningMode = value;
         }
     }
