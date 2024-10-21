@@ -11,10 +11,13 @@ public class ModelManager : MonoBehaviour
     [SerializeField]
     private Category[] categories;
 
-    private void OnEnable()
+    private void Start()
     {
         categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
         modelData = new ModelData(model.gameObject, categories: categories);
+    }
+    private void OnEnable()
+    {
         ToggleButtonManager.CategoryToggled += OnCategoryToggled;
     }
 
@@ -42,8 +45,6 @@ public class ModelManager : MonoBehaviour
         {
             pipe.gameObject.SetActive(modelData.Filter.Contains(pipe.Category));
         }
-
-        modelData.Filter.ForEach(filter => { Debug.Log(filter); });
         foreach (var fitting in modelData.Fittings)
         {
             fitting.gameObject.SetActive(modelData.Filter.Contains(fitting.Category));

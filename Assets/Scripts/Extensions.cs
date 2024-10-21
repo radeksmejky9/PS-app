@@ -67,4 +67,29 @@ public static class Extensions
 
         return new Vector3(_x, _y, _z);
     }
+
+    public static string Debug(this IEnumerable array)
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        foreach (var item in array)
+        {
+            if (item == null)
+            {
+                sb.AppendLine("Item is null");
+                continue;
+            }
+
+            var nameProperty = item.GetType().GetProperty("name");
+            if (nameProperty != null)
+            {
+                string name = nameProperty.GetValue(item)?.ToString() ?? "null";
+                sb.AppendLine(name);
+            }
+            else
+            {
+                sb.AppendLine(item.ToString());
+            }
+        }
+        return sb.ToString();
+    }
 }

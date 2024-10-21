@@ -1,24 +1,18 @@
-using DocumentFormat.OpenXml.Drawing.Charts;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
-public class ToggleButton : MonoBehaviour
+public class ToggleButton : Toggle
 {
     public event Action<Category, bool> OnToggleChanged;
-
     public TextMeshProUGUI Label;
-    public Toggle toggle;
-    public float height;
     public Category category;
+    public CategoryGroup categoryGroup;
 
-    private void Start()
+    protected override void Start()
     {
-        toggle.onValueChanged.AddListener(OnToggleValueChanged);
+        base.Start();
+        this.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
     private void OnToggleValueChanged(bool isToggled)
