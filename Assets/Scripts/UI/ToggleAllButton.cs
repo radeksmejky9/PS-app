@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToggleGroupButton : Toggle
+public class ToggleAllButton : Toggle
 {
     [SerializeField] private Sprite FullSprite;
     [SerializeField] private Sprite PartialSprite;
@@ -13,13 +13,8 @@ public class ToggleGroupButton : Toggle
     [SerializeField] private Image CheckImage;
     [SerializeField] private Image BackgroundImage;
 
-    public event Action<ToggleGroupButton, bool> OnToggledGroup;
+    public event Action<bool> OnToggleAll;
 
-    public TextMeshProUGUI Label;
-    public CategoryGroup categoryGroup;
-    public Transform Content;
-
-    public List<ToggleButton> toggleButtons = new List<ToggleButton>();
     private FillState state = FillState.Full;
 
     public FillState State
@@ -53,7 +48,7 @@ public class ToggleGroupButton : Toggle
         base.Start();
         this.onValueChanged.AddListener(OnToggledGroupChanged);
     }
-    public void ChangeState()
+    public void ChangeState(List<ToggleButton> toggleButtons)
     {
         State = toggleButtons.All(button => button.isOn) ?
             FillState.Full : toggleButtons.All(button => !button.isOn) ?
@@ -62,7 +57,7 @@ public class ToggleGroupButton : Toggle
 
     private void OnToggledGroupChanged(bool isToggled)
     {
-        OnToggledGroup?.Invoke(this, isToggled);
+        OnToggleAll?.Invoke(isToggled);
     }
 
     public enum FillState

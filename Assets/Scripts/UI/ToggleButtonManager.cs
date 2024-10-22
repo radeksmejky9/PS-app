@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ public class ToggleButtonManager : MonoBehaviour
 
     public ToggleButton tgButtonPrefab;
     public ToggleGroupButton tgGroupButtonPrefab;
+    public ToggleAllButton tgAllButton;
 
     private Category[] categories;
     private CategoryGroup[] categoryGroups;
@@ -22,6 +24,16 @@ public class ToggleButtonManager : MonoBehaviour
         categoryGroups = Resources.LoadAll("CategoryGroup/", typeof(CategoryGroup)).Cast<CategoryGroup>().ToArray();
         categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
         CreateCategoryMenu();
+    }
+
+    private void OnEnable()
+    {
+        tgAllButton.OnToggleAll += OnToggleAll;
+    }
+
+    private void OnDisable()
+    {
+        tgAllButton.OnToggleAll -= OnToggleAll;
     }
 
     private void CreateCategoryMenu()
@@ -71,10 +83,16 @@ public class ToggleButtonManager : MonoBehaviour
                 button.ChangeState();
             }
         });
+        tgAllButton.ChangeState(toggleButtons);
     }
     private void OnCategoryGroupToggled(ToggleGroupButton groupButton, bool isToggled)
     {
         groupButton.toggleButtons.ForEach(button => button.isOn = isToggled);
         groupButton.ChangeState();
+        tgAllButton.ChangeState(toggleButtons);
+    }
+    private void OnToggleAll(bool isToggled)
+    {
+        toggleButtons.ForEach(button => button.isOn = isToggled);
     }
 }

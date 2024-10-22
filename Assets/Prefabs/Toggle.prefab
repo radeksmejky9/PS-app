@@ -236,7 +236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4809235238905626723}
-  - component: {fileID: 8014838853753559052}
+  - component: {fileID: 568214399133364893}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -264,7 +264,7 @@ RectTransform:
   m_AnchoredPosition: {x: -142.29999, y: 0}
   m_SizeDelta: {x: 105, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8014838853753559052
+--- !u!114 &568214399133364893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9099310866083806732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b738c8393b9ab24081c694b8c6c957b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b7d4b5eea41c3d47ad31da7991e0ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -283,7 +283,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -294,7 +294,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: ca07ee04638400143875bc1c1a2174b4, type: 3}
+    m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -312,6 +312,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
-  Label: {fileID: 0}
-  category: {fileID: 0}
-  categoryGroup: {fileID: 0}
+  FullSprite: {fileID: 21300000, guid: 347424c70381bb44da8c54ea4a06cbcc, type: 3}
+  PartialSprite: {fileID: 21300000, guid: 9e8c0d07a903aab4f8fa2c67f2b6b65c, type: 3}
+  EmptySprite: {fileID: 21300000, guid: ca07ee04638400143875bc1c1a2174b4, type: 3}
+  CheckImage: {fileID: 8276390265844614199}
+  BackgroundImage: {fileID: 7095468910627351435}

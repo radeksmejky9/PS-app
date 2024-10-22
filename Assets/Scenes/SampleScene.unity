@@ -3652,6 +3652,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ifctest
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cbd9b3364f2db714c81ea3b151fccada,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4045,6 +4050,7 @@ MonoBehaviour:
     type: 3}
   tgGroupButtonPrefab: {fileID: 2500640287460717717, guid: 225f93e29737b834191f6249949303bc,
     type: 3}
+  tgAllButton: {fileID: 315519188927490118}
 --- !u!1 &1792201266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4621,6 +4627,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 315519188927490116}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &315519188927490118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 568214399133364893, guid: 906a370506d533944a02d07c38cc525b,
+    type: 3}
+  m_PrefabInstance: {fileID: 315519188927490116}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7d4b5eea41c3d47ad31da7991e0ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &393379408359852412
 GameObject:
   m_ObjectHideFlags: 0

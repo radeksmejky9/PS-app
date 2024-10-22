@@ -1,14 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using ZXing;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using Unity.Collections;
 using UnityEngine.XR.ARSubsystems;
 using System;
-using System.ComponentModel;
-using TMPro;
-using ZXing.QrCode.Internal;
 using Newtonsoft.Json;
 
 public class BarcodeScanner : MonoBehaviour
@@ -74,6 +70,7 @@ public class BarcodeScanner : MonoBehaviour
                         if (!string.IsNullOrEmpty(_qrCode))
                         {
                             QRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode));
+                            Vibration.Vibrate(100);
                             Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
                             ScanningMode = false;
                             break;

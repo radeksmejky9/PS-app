@@ -29,11 +29,12 @@ public class CameraConfigController : MonoBehaviour
             try
             {
                 //In my case 0=640*480, 1= 1280*720, 2=1920*1080
-                arCameraManager.subsystem.currentConfiguration = arCameraManager.GetConfigurations(Allocator.Temp)[1];
+                arCameraManager.subsystem.currentConfiguration = arCameraManager.GetConfigurations(Allocator.Temp)[2];
             }
             catch (Exception e)
             {
                 Debug.LogWarning(e);
+
             }
             finally
             {
