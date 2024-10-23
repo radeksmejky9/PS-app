@@ -7,9 +7,9 @@ using UnityEngine.XR.ARSubsystems;
 using System;
 using Newtonsoft.Json;
 
-public class BarcodeScanner : MonoBehaviour
+public class QRScanner : MonoBehaviour
 {
-    public static Action<SnappingPoint> QRScanned;
+    public static Action<SnappingPoint> OnQRScanned;
 
     public ARCameraManager CameraManager;
 
@@ -69,9 +69,18 @@ public class BarcodeScanner : MonoBehaviour
                         _qrCode = Result.Text;
                         if (!string.IsNullOrEmpty(_qrCode))
                         {
-                            QRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode));
+                            try
+                            {
+                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode.Base64Decode()));
+                                Debug.Log("DECODED TEXT FROM QR: " + _qrCode.Base64Decode());
+                            }
+                            catch
+                            {
+                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode));
+                                Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
+                            }
+
                             Vibration.Vibrate(100);
-                            Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
                             ScanningMode = false;
                             break;
                         }

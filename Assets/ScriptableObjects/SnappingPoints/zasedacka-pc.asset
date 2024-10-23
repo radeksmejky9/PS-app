@@ -12,29 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
   m_Name: zasedacka-pc
   m_EditorClassIdentifier: 
-  sp:
-    Building: Datove Centrum
-    Room: zasedacka-ntb
+  SnappingPoint:
+    Building: DCUK
+    Room: Mistnost
     Position:
-      X: -12
-      Y: 1.7
-      Z: 5
+      X: 0
+      Y: 0
+      Z: 0
     Rotation:
       X: 0
-      Y: 180
+      Y: 0
       Z: 0
-    Url: https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx
-  jsonString: "{\r\n  \"Building\": \"Datove Centrum\",\r\n  \"Room\": \"zasedacka-ntb\",\r\n 
-    \"Position\": {\r\n    \"X\": -12.0,\r\n    \"Y\": 1.7,\r\n    \"Z\": 5.0\r\n 
-    },\r\n  \"Rotation\": {\r\n    \"X\": 0.0,\r\n    \"Y\": 180.0,\r\n    \"Z\":
-    0.0\r\n  },\r\n  \"Url\": \"https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx\"\r\n}"
-  building: Datove Centrum
-  room: zasedacka-ntb
-  positionX: -12
-  positionY: 1.7
-  positionZ: 5
-  rotationX: 0
-  rotationY: 180
-  rotationZ: 0
-  url: https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx
-  qrCodeTexture: {fileID: 0}
+    Url: 
+  QRCodeTexture: {fileID: 0}
+  JsonString: "{\r\n        \"Building\": \"DCUK\",\r\n        \"Room\": \"Mistnost\",\r\n       
+    \"Position\": {\r\n            \"X\": 0.0,\r\n            \"Y\": 0.0,\r\n           
+    \"Z\": 0.0\r\n        },\r\n        \"Rotation\": {\r\n            \"X\": 0.0,\r\n           
+    \"Y\": 0.0,\r\n            \"Z\": 0.0\r\n        },\r\n        \"FBX\": {\r\n           
+    \"url\": \"https://github.com/radeksmejky9/PS/tree/main/Assets/Models/DCUK.fbx\"\r\n       
+    }\r\n    }"

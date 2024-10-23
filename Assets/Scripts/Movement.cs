@@ -24,12 +24,12 @@ public class Movement : MonoBehaviour
     }
     void OnEnable()
     {
-        BarcodeScanner.QRScanned += Move;
+        QRScanner.OnQRScanned += Move;
     }
 
     void OnDisable()
     {
-        BarcodeScanner.QRScanned -= Move;
+        QRScanner.OnQRScanned -= Move;
     }
     public void Move(SnappingPoint snappingPoint)
     {
