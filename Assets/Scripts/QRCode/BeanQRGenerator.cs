@@ -16,6 +16,12 @@ public class BeanQRGenerator : MonoBehaviour
 
     private void Update()
     {
+        if (Application.isPlaying)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         sp.Position.X = qrPreview.position.x;
         sp.Position.Y = qrPreview.position.y;
         sp.Position.Z = qrPreview.position.z;

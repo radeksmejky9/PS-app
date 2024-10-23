@@ -16,16 +16,16 @@ MonoBehaviour:
     Building: DCUK
     Room: vaibar_kancelar
     Position:
-      X: 8.53
+      X: -8.195
       Y: 1.3000001
-      Z: -1.49
+      Z: 1.43
     Rotation:
       X: -0
-      Y: 0
+      Y: 180
       Z: 0
     Url: asdljasdjak.com
   QRCodeTexture: {fileID: 0}
-  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"zasedacka\",\r\n 
-    \"Position\": {\r\n    \"X\": 8.53,\r\n    \"Y\": 1.30000007,\r\n    \"Z\": -1.49\r\n 
-    },\r\n  \"Rotation\": {\r\n    \"X\": 0.0,\r\n    \"Y\": 0.0,\r\n    \"Z\": 0.0\r\n 
-    },\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"
+  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"vaibar_kancelar\",\r\n 
+    \"Position\": {\r\n    \"X\": -8.195,\r\n    \"Y\": 1.30000007,\r\n    \"Z\":
+    1.43\r\n  },\r\n  \"Rotation\": {\r\n    \"X\": 0.0,\r\n    \"Y\": 180.0,\r\n   
+    \"Z\": 0.0\r\n  },\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"

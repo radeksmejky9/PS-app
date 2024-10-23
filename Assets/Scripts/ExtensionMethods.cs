@@ -30,7 +30,7 @@ public static class Extensions
 
             foreach (Collider collider in hitColliders)
             {
-                Pipe hitPipe = collider.GetComponent<Pipe>(); // Assuming Pipe is a component on the GameObject
+                Pipe hitPipe = collider.GetComponent<Pipe>();
 
                 if (hitPipe != null && System.Array.Exists(pipes, pipe => pipe == hitPipe))
                 {

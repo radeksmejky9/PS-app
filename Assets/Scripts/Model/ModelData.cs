@@ -1,7 +1,9 @@
+using DocumentFormat.OpenXml.EMMA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -12,21 +14,27 @@ public class ModelData
     private Category[] categories;
 
     private GameObject model;
-    private List<Pipe> pipes = new List<Pipe>();
-    private List<Fitting> fittings = new List<Fitting>();
     private List<Category> filter;
+    private List<ModelElement> elements = new List<ModelElement>();
 
     public GameObject Model { get => model; private set => model = value; }
+    public List<ModelElement> Elements
+    {
+        get => elements;
+    }
     public List<Pipe> Pipes
     {
-        get => pipes;
-        private set => pipes = value;
+        get => elements.OfType<Pipe>().ToList();
     }
 
     public List<Fitting> Fittings
     {
-        get => fittings;
-        private set => fittings = value;
+        get => elements.OfType<Fitting>().ToList();
+    }
+
+    public List<ModelElement> EnvironmentElements
+    {
+        get => elements.Where(e => e is not Pipe && e is not Fitting).ToList();
     }
 
     public List<Category> Filter { get => filter; set => filter = value; }
@@ -41,25 +49,37 @@ public class ModelData
         this.PIPE_PATTERN = pipe_pattern;
         this.CONNECTION_PATTERN = connection_pattern;
         this.categories = categories ?? new Category[] { };
-        this.Filter = categories.ToList();
+        this.Filter = this.categories.ToList();
         InitModel();
     }
     private void InitModel()
     {
-        Match match;
+        List<Transform> elements = model.GetComponentsInChildren<Transform>(true).ToList();
+        elements.Remove(model.transform);
 
-        foreach (Transform element in model.GetComponentsInChildren<Transform>(true))
+
+        ProcessElements(elements, PIPE_PATTERN, (match, element) => CreatePipe(match, element));
+        ProcessElements(elements, CONNECTION_PATTERN, (match, element) => CreateFitting(match, element));
+        ProcessElements(elements, string.Empty, (match, element) => CreateEnvironmentElement(match, element));
+    }
+    void ProcessElements(List<Transform> elements, string pattern, Action<Match, Transform> creationMethod)
+    {
+        for (int i = elements.Count - 1; i >= 0; i--)
         {
-            match = Regex.Match(element.name, PIPE_PATTERN, RegexOptions.IgnoreCase);
+            Transform element = elements[i];
+            Match match = Regex.Match(element.name, pattern, RegexOptions.IgnoreCase);
             if (!match.Success) continue;
-            CreatePipe(match, element);
+
+            creationMethod(match, element);
+            elements.RemoveAt(i);
         }
-        foreach (Transform element in model.GetComponentsInChildren<Transform>(true))
-        {
-            match = Regex.Match(element.name, CONNECTION_PATTERN, RegexOptions.IgnoreCase);
-            if (!match.Success) continue;
-            CreateFitting(match, element);
-        }
+    }
+
+    private void CreateEnvironmentElement(Match match, Transform element)
+    {
+        ModelElement modelElement = element.AddComponent<ModelElement>();
+        modelElement.Category = LinkCategoryToName(categories, "Environment");
+        elements.Add(modelElement);
     }
 
     private void CreatePipe(Match match, Transform element)
@@ -81,13 +101,13 @@ public class ModelData
         {
             pipe.Category = LinkCategoryToName(categories, "Undefined");
         }
-        pipes.Add(pipe);
+        elements.Add(pipe);
     }
 
     private void CreateFitting(Match match, Transform element)
     {
         Fitting fitting = element.gameObject.AddComponent<Fitting>();
-        Pipe closestPipe = fitting.transform.GetClosestPipe(pipes.ToArray());
+        Pipe closestPipe = fitting.transform.GetClosestPipe(Pipes.ToArray());
         if (closestPipe != null)
         {
             fitting.Category = closestPipe.Category;
@@ -96,8 +116,7 @@ public class ModelData
         {
             fitting.Category = LinkCategoryToName(categories, "Undefined");
         }
-        fittings.Add(fitting);
-
+        elements.Add(fitting);
     }
 
     private static Category LinkCategoryToName(Category[] categories, string categoryName)

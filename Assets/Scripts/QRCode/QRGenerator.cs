@@ -45,7 +45,7 @@ public class QRGenerator : ScriptableObject
         }
     }
 
-    public void UpdateFieldsFromJson()
+    public void UpdateFieldsFromJSON()
     {
         try
         {

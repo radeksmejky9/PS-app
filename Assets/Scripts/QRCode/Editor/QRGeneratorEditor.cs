@@ -27,6 +27,7 @@ public class QRGeneratorEditor : Editor
     private void UseFields()
     {
         SerializedProperty snappingPointProperty = serializedObject.FindProperty("SnappingPoint");
+        qrGenerator.UpdateFieldsFromJSON();
         serializedObject.Update();
 
         EditorGUI.BeginChangeCheck();
@@ -49,7 +50,7 @@ public class QRGeneratorEditor : Editor
 
         if (GUILayout.Button("Save JSON"))
         {
-            qrGenerator.UpdateFieldsFromJson();
+            qrGenerator.UpdateFieldsFromJSON();
             useJsonEditor = false;
         }
     }
