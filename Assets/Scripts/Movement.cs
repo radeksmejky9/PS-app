@@ -1,13 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Unity.Mathematics;
-using Unity.XR.CoreUtils;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using Xbim.Ifc2x3.SharedBldgServiceElements;
 
 public class Movement : MonoBehaviour
 {
@@ -21,6 +13,7 @@ public class Movement : MonoBehaviour
     {
         Model = Assets.parent;
         cam = Camera.main.transform;
+        Assets.gameObject.SetActive(false);
     }
     void OnEnable()
     {
@@ -40,14 +33,14 @@ public class Movement : MonoBehaviour
         }
 
         Assets.SetPositionAndRotation(new Vector3(
-                -snappingPoint.Position.X + cam.position.x,
-                -snappingPoint.Position.Y + cam.position.y,
-                -snappingPoint.Position.Z + cam.position.z
+                -snappingPoint.Position.x + cam.position.x,
+                -snappingPoint.Position.y + cam.position.y,
+                -snappingPoint.Position.z + cam.position.z
                 ), new quaternion(0, 0, 0, 0));
 
         currentCube = CreateAnchor();
 
-        Quaternion snappingPointRotation = Quaternion.Euler(0, snappingPoint.Rotation.Y, 0);
+        Quaternion snappingPointRotation = Quaternion.Euler(0, snappingPoint.Rotation, 0);
 
         float camYRotation = Camera.main.transform.rotation.eulerAngles.y;
         Quaternion camYRotationOnly = Quaternion.Euler(0, camYRotation, 0);

@@ -71,7 +71,7 @@ public class QRScanner : MonoBehaviour
                         {
                             try
                             {
-                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode.Base64Decode()));
+                                OnQRScanned?.Invoke(SnappingPoint.Decode(_qrCode.Base64Decode()));
                                 Debug.Log("DECODED TEXT FROM QR: " + _qrCode.Base64Decode());
                             }
                             catch

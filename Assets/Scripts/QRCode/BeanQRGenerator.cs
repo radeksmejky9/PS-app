@@ -22,13 +22,11 @@ public class BeanQRGenerator : MonoBehaviour
             return;
         }
 
-        sp.Position.X = qrPreview.position.x;
-        sp.Position.Y = qrPreview.position.y;
-        sp.Position.Z = qrPreview.position.z;
+        sp.Position.x = qrPreview.position.x;
+        sp.Position.y = qrPreview.position.y;
+        sp.Position.z = qrPreview.position.z;
+        sp.Rotation = this.transform.rotation.eulerAngles.y;
 
-        sp.Rotation.X = this.transform.rotation.eulerAngles.x;
-        sp.Rotation.Y = this.transform.rotation.eulerAngles.y;
-        sp.Rotation.Z = this.transform.rotation.eulerAngles.z;
     }
 
     public void InitGenerator()

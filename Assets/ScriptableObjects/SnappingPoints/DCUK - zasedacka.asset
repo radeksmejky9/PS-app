@@ -10,22 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
-  m_Name: DCUK - vaibar_kancelar
+  m_Name: DCUK - zasedacka
   m_EditorClassIdentifier: 
   SnappingPoint:
     Building: DCUK
-    Room: vaibar_kancelar
+    Room: zasedacka
     Position:
-      X: -8.195
-      Y: 1.3000001
-      Z: 1.43
-    Rotation:
-      X: -0
-      Y: 180
-      Z: 0
+      x: -7.97
+      y: 1.3000001
+      z: 1.43
+    Rotation: 180
     Url: asdljasdjak.com
   QRCodeTexture: {fileID: 0}
-  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"vaibar_kancelar\",\r\n 
-    \"Position\": {\r\n    \"X\": -8.195,\r\n    \"Y\": 1.30000007,\r\n    \"Z\":
-    1.43\r\n  },\r\n  \"Rotation\": {\r\n    \"X\": 0.0,\r\n    \"Y\": 180.0,\r\n   
-    \"Z\": 0.0\r\n  },\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"
+  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"zasedacka\",\r\n 
+    \"Position\": {\r\n    \"x\": -7.97,\r\n    \"y\": 1.30000007,\r\n    \"z\":
+    1.43\r\n  },\r\n  \"Rotation\": 180.0,\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"

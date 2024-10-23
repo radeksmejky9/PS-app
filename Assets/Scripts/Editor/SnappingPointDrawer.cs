@@ -1,94 +1,64 @@
 using DocumentFormat.OpenXml.Drawing;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CustomPropertyDrawer(typeof(SnappingPointAttribute), true)]
 [CustomPropertyDrawer(typeof(SnappingPoint))]
 public class SnappingPointDrawer : PropertyDrawer
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    bool positionEditable = true;
+    bool rotationEditable = true;
+
+    SerializedProperty building;
+    SerializedProperty room;
+    SerializedProperty position;
+    SerializedProperty rotation;
+    SerializedProperty url;
+    public void OnEnable()
     {
-        EditorGUI.BeginProperty(position, label, property);
-
-        SerializedProperty building = property.FindPropertyRelative("Building");
-        SerializedProperty room = property.FindPropertyRelative("Room");
-        SerializedProperty posX = property.FindPropertyRelative("Position").FindPropertyRelative("X");
-        SerializedProperty posY = property.FindPropertyRelative("Position").FindPropertyRelative("Y");
-        SerializedProperty posZ = property.FindPropertyRelative("Position").FindPropertyRelative("Z");
-        SerializedProperty rotX = property.FindPropertyRelative("Rotation").FindPropertyRelative("X");
-        SerializedProperty rotY = property.FindPropertyRelative("Rotation").FindPropertyRelative("Y");
-        SerializedProperty rotZ = property.FindPropertyRelative("Rotation").FindPropertyRelative("Z");
-        SerializedProperty url = property.FindPropertyRelative("Url");
-
-        EditorGUILayout.LabelField("Snapping Point", EditorStyles.boldLabel);
-
-        building.stringValue = CreateHorizontal("Building", building.stringValue, 80, 170);
-        room.stringValue = CreateHorizontal("Room", room.stringValue, 80, 170);
-
         SnappingPointAttribute snappingPointAttribute = (SnappingPointAttribute)attribute;
-        bool positionEditable = true;
-        bool rotationEditable = true;
-
         if (snappingPointAttribute != null)
         {
             positionEditable = snappingPointAttribute.positionEditable;
             rotationEditable = snappingPointAttribute.rotationEditable;
         }
+    }
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EditorGUI.BeginProperty(position, label, property);
+
+        building = property.FindPropertyRelative("Building");
+        room = property.FindPropertyRelative("Room");
+        this.position = property.FindPropertyRelative("Position");
+        rotation = property.FindPropertyRelative("Rotation");
+        url = property.FindPropertyRelative("Url");
+
+        Vector3 tempPosition = new Vector3(
+             this.position.FindPropertyRelative("x").floatValue,
+             this.position.FindPropertyRelative("y").floatValue,
+             this.position.FindPropertyRelative("z").floatValue
+        );
+
+        EditorGUILayout.LabelField("Snapping Point", EditorStyles.boldLabel);
+
+        building.stringValue = EditorGUILayout.TextField("Building", building.stringValue);
+        room.stringValue = EditorGUILayout.TextField("Room", room.stringValue);
 
         GUI.enabled = positionEditable;
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Position");
-        GUILayout.FlexibleSpace();
-        posX.floatValue = DraggableFloatField("X", posX.floatValue);
-        posY.floatValue = DraggableFloatField("Y", posY.floatValue);
-        posZ.floatValue = DraggableFloatField("Z", posZ.floatValue);
-        EditorGUILayout.EndHorizontal();
+        tempPosition = EditorGUILayout.Vector3Field("Position", tempPosition);
         GUI.enabled = true;
 
         GUI.enabled = rotationEditable;
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Rotation");
-        GUILayout.FlexibleSpace();
-        rotX.floatValue = DraggableFloatField("X", rotX.floatValue);
-        rotY.floatValue = DraggableFloatField("Y", rotY.floatValue);
-        rotZ.floatValue = DraggableFloatField("Z", rotZ.floatValue);
-        EditorGUILayout.EndHorizontal();
+        rotation.floatValue = EditorGUILayout.FloatField("Rotation", rotation.floatValue);
         GUI.enabled = true;
 
-        url.stringValue = CreateHorizontal("URL", url.stringValue, 80, 170);
+        url.stringValue = EditorGUILayout.TextField("URL", url.stringValue);
+
+        this.position.FindPropertyRelative("x").floatValue = tempPosition.x;
+        this.position.FindPropertyRelative("y").floatValue = tempPosition.y;
+        this.position.FindPropertyRelative("z").floatValue = tempPosition.z;
         EditorGUI.EndProperty();
-
-    }
-
-    private float DraggableFloatField(string label, float value)
-    {
-        EditorGUIUtility.labelWidth = 10;
-        value = EditorGUILayout.FloatField(label, value, GUILayout.Width(60));
-        return value;
-    }
-
-    private T CreateHorizontal<T>(string label, T value, float labelWidth, float fieldWidth)
-    {
-        EditorGUILayout.BeginHorizontal();
-
-        GUILayout.Label(label, GUILayout.Width(labelWidth));
-        GUILayout.FlexibleSpace();
-        if (typeof(T) == typeof(string))
-        {
-            value = (T)(object)EditorGUILayout.TextField((string)(object)value, GUILayout.Width(fieldWidth));
-        }
-        else if (typeof(T) == typeof(int))
-        {
-            value = (T)(object)EditorGUILayout.IntField((int)(object)value, GUILayout.Width(fieldWidth));
-
-        }
-        else if (typeof(T) == typeof(float))
-        {
-            value = (T)(object)EditorGUILayout.FloatField((float)(object)value, GUILayout.Width(fieldWidth));
-        }
-
-        EditorGUILayout.EndHorizontal();
-
-        return value;
     }
 }
