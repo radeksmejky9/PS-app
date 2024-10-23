@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleButton : Toggle
@@ -9,9 +10,13 @@ public class ToggleButton : Toggle
     public Category category;
     public CategoryGroup categoryGroup;
 
+    public Image img;
+
     protected override void Start()
     {
         base.Start();
+        img.material = category.material;
+
         this.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
