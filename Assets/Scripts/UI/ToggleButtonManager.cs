@@ -2,17 +2,18 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class ToggleButtonManager : MonoBehaviour
 {
     public static Action<Category, bool> CategoryToggled;
     public Transform parent;
-
     public ToggleButton tgButtonPrefab;
-    public ToggleGroupButton tgGroupButtonPrefab;
     public ToggleAllButton tgAllButton;
 
+    public GameObject toggleGroupButtonPrefab;
     private Category[] categories;
     private CategoryGroup[] categoryGroups;
 
@@ -40,7 +41,9 @@ public class ToggleButtonManager : MonoBehaviour
     {
         foreach (CategoryGroup group in categoryGroups)
         {
-            ToggleGroupButton groupToggleObj = Instantiate(tgGroupButtonPrefab, parent);
+            GameObject toggleGroupButton = Instantiate(toggleGroupButtonPrefab, parent);
+            ToggleGroupButton groupToggleObj = toggleGroupButton.GetComponentInChildren<ToggleGroupButton>();
+            Debug.Log(groupToggleObj);
             groupToggleObj.Label.text = group.ToString();
             groupToggleObj.OnToggledGroup += OnCategoryGroupToggled;
             groupToggleObj.categoryGroup = group;

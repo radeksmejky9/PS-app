@@ -220,7 +220,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!114 &26488178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3602,18 +3602,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.46231
+      value: -8.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.76136583
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.3037663
+      value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cbd9b3364f2db714c81ea3b151fccada,
         type: 3}
@@ -4029,9 +4044,9 @@ MonoBehaviour:
   parent: {fileID: 26488176}
   tgButtonPrefab: {fileID: 5725802847667613072, guid: 7d1d6f4999c12194dacd036fce0a725d,
     type: 3}
-  tgGroupButtonPrefab: {fileID: 2500640287460717717, guid: 225f93e29737b834191f6249949303bc,
-    type: 3}
   tgAllButton: {fileID: 315519188927490118}
+  toggleGroupButtonPrefab: {fileID: 3071680316425117683, guid: 225f93e29737b834191f6249949303bc,
+    type: 3}
 --- !u!1 &1792201266
 GameObject:
   m_ObjectHideFlags: 0
