@@ -1,9 +1,6 @@
-using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class ToggleButtonManager : MonoBehaviour
