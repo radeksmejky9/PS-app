@@ -13,7 +13,6 @@ public class Movement : MonoBehaviour
     {
         Model = Assets.parent;
         cam = Camera.main.transform;
-        //Assets.gameObject.SetActive(false);
     }
     void OnEnable()
     {

@@ -23,21 +23,29 @@ public class SnappingPoint
     }
     public static string Encode(SnappingPoint sp)
     {
+        Debug.Log($"" +
+             $"{Math.Floor(sp.Position.x * 100)};" +
+             $"{Math.Floor(sp.Position.y * 100)};" +
+             $"{Math.Floor(sp.Position.z * 100)};");
+
         return $"" +
-             $"{sp.Building};{sp.Room};{Math.Floor(sp.Position.x * 10)};" +
-             $"{Math.Floor(sp.Position.y * 10)};" +
-             $"{Math.Floor(sp.Position.z * 10)};" +
-             $"{Math.Floor(sp.Rotation * 10)};{sp.Url}";
+             $"{sp.Building};{sp.Room};{Math.Floor(sp.Position.x * 100)};" +
+             $"{Math.Floor(sp.Position.y * 100)};" +
+             $"{Math.Floor(sp.Position.z * 100)};" +
+             $"{Math.Floor(sp.Rotation * 100)};{sp.Url}";
     }
     public static SnappingPoint Decode(string input)
     {
         string[] fields = input.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
         string building = fields[0];
         string room = fields[1];
-        Vector3 position = new Vector3(float.Parse(fields[2]) / 10, float.Parse(fields[3]) / 10, float.Parse(fields[4]) / 10);
-        float rotation = float.Parse(fields[5]) / 10;
+        Vector3 position = new Vector3(float.Parse(fields[2]) / 100, float.Parse(fields[3]) / 100, float.Parse(fields[4]) / 100);
+        float rotation = float.Parse(fields[5]) / 100;
         string url = fields[6];
-
+        Debug.Log($"DEBUG POSITIONEN" +
+            $"{position.x};" +
+            $"{position.y};" +
+            $"{position.z};");
         return new SnappingPoint(building, room, position, rotation, url);
     }
 

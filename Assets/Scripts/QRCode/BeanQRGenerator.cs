@@ -22,9 +22,9 @@ public class BeanQRGenerator : MonoBehaviour
             return;
         }
 
-        sp.Position.x = qrPreview.position.x;
-        sp.Position.y = qrPreview.position.y;
-        sp.Position.z = qrPreview.position.z;
+        sp.Position.x = this.transform.position.x;
+        sp.Position.y = this.transform.position.y;
+        sp.Position.z = this.transform.position.z;
         sp.Rotation = this.transform.rotation.eulerAngles.y;
 
     }

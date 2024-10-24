@@ -20,16 +20,24 @@ public class ModelManager : MonoBehaviour
         foreach (var model in models)
         {
             modelData.Add(new ModelData(model.gameObject, categories: categories));
+            model.gameObject.SetActive(false);
         }
     }
     private void OnEnable()
     {
         ToggleButtonManager.CategoryToggled += OnCategoryToggled;
+        QRScanner.OnQRScanned += EnableModel;
     }
 
     private void OnDisable()
     {
         ToggleButtonManager.CategoryToggled -= OnCategoryToggled;
+        QRScanner.OnQRScanned -= EnableModel;
+    }
+
+    private void EnableModel(SnappingPoint sp)
+    {
+        models.ForEach(model => { model.gameObject.SetActive(true); });
     }
 
     private void OnCategoryToggled(Category category, bool isActive)

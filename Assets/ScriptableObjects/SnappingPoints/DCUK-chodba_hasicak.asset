@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a74ef3bb2f58cd4a9bf0d083dc8e909, type: 3}
-  m_Name: DCUK-technicka_laborator
+  m_Name: DCUK-chodba_hasicak
   m_EditorClassIdentifier: 
   SnappingPoint:
     Building: DCUK
-    Room: technicka_laborator
+    Room: chodba_hasicak
     Position:
-      x: 8.81
+      x: -0.27
       y: 1.7
-      z: -1.92
-    Rotation: 0
+      z: -0.76
+    Rotation: 180
     Url: asdljasdjak.com
   QRCodeTexture: {fileID: 0}
-  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"technicka_laborator\",\r\n 
-    \"Position\": {\r\n    \"x\": 8.81,\r\n    \"y\": 1.7,\r\n    \"z\": -1.92\r\n 
-    },\r\n  \"Rotation\": 0.0,\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"
+  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"chodba_hasicak\",\r\n 
+    \"Position\": {\r\n    \"x\": -0.27,\r\n    \"y\": 1.7,\r\n    \"z\": -0.76\r\n 
+    },\r\n  \"Rotation\": 180.0,\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"
