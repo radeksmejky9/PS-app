@@ -1,31 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+
 
 public class DebugText : MonoBehaviour
 {
     [SerializeField]
     private GameObject debug;
-
     [SerializeField]
     private Transform assets;
     [SerializeField]
-    private TextMeshProUGUI debugText;
+    private TextMeshProUGUI debugPositionText;
+    [SerializeField]
+    private TextMeshProUGUI debugConsoleText;
 
     private Transform cam;
-
+    private string logMessages = "";
     private void Start()
     {
         cam = Camera.main.transform;
     }
 
-    void Update()
+    private void Update()
     {
         UpdateDebugText();
+    }
+
+    private void OnEnable()
+    {
+        Application.logMessageReceived += HandleLog;
+    }
+
+    private void OnDisable()
+    {
+        Application.logMessageReceived -= HandleLog;
+
     }
 
     public void ActivateDebug()
@@ -36,7 +44,7 @@ public class DebugText : MonoBehaviour
     {
         if (!debug.activeSelf) return;
 
-        debugText.text = @$"<b><color=#FFD700>Assets Position:</color></b>
+        debugPositionText.text = @$"<b><color=#FFD700>Assets Position:</color></b>
 X: {assets.position.x}
 Y: {assets.position.y}
 Z: {assets.position.z}
@@ -52,5 +60,19 @@ Z: {cam.position.z}
 X: {cam.rotation.x}
 Y: {cam.rotation.y}
 Z: {cam.rotation.z}".Trim();
+    }
+
+    void HandleLog(string logString, string stackTrace, LogType type)
+    {
+        if (type == LogType.Error || type == LogType.Exception)
+        {
+            logMessages += $"<color=red>{logString}</color>\n";
+            logMessages += $"<color=red>{stackTrace}</color>\n";
+        }
+        else if (type == LogType.Log)
+        {
+            logMessages += logString + "\n";
+        }
+        debugConsoleText.text = logMessages;
     }
 }
