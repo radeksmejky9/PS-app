@@ -19,7 +19,6 @@ public static class Extensions
         Pipe closestObject = null;
         float closestDistance = Mathf.Infinity;
 
-
         Collider[] initialHitColliders = Physics.OverlapSphere(sourcePosition, maxRadius);
         if (initialHitColliders.Length == 0)
         {
@@ -50,7 +49,6 @@ public static class Extensions
             if (closestObject != null) return closestObject;
             sphereRadius += radiusIncrement;
         }
-
         return null;
     }
 

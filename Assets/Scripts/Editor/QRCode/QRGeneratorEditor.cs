@@ -7,6 +7,8 @@ public class QRGeneratorEditor : Editor
     private bool useJsonEditor = false;
     private Vector2 scrollPosition;
     private QRGenerator qrGenerator;
+    private string downloadsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "/Downloads";
+
 
     public override void OnInspectorGUI()
     {
@@ -59,13 +61,25 @@ public class QRGeneratorEditor : Editor
     {
         GUILayout.Label("QR Code Preview:");
         GUILayout.Label(new GUIContent(qrGenerator.QRCodeTexture), GUILayout.Width(256), GUILayout.Height(256));
+        string name = $"{qrGenerator.SnappingPoint.Building}-{qrGenerator.SnappingPoint.Room}";
 
         if (GUILayout.Button("Save QR Code to PC"))
         {
-            string name = qrGenerator.name.Replace(" ", "_");
-            string path = EditorUtility.SaveFilePanel("Save QR Code", "", $"QR-{name}.png", "png");
+            string path = EditorUtility.SaveFilePanel("Save QR Code", downloadsPath, $"QR-{name}.png", "png");
             if (!string.IsNullOrEmpty(path))
             {
+                int counter = 0;
+                string originalPath = path;
+
+                while (System.IO.File.Exists(path))
+                {
+                    counter++;
+                }
+
+                if (counter != 0)
+                {
+                    path = originalPath.Replace(".png", $"({counter}).png");
+                }
                 qrGenerator.SaveQRCode(path);
             }
         }

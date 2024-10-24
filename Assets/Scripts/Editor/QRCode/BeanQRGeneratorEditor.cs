@@ -37,6 +37,18 @@ public class BeanQRGeneratorEditor : Editor
             string path = EditorUtility.SaveFilePanel("Save QR Code", downloadsPath, $"QR-{name}.png", "png");
             if (!string.IsNullOrEmpty(path))
             {
+                int counter = 0;
+                string originalPath = path;
+
+                while (System.IO.File.Exists(path))
+                {
+                    counter++;
+                }
+
+                if (counter != 0)
+                {
+                    path = originalPath.Replace(".png", $"({counter}).png");
+                }
                 bean.QRGenerator.SaveQRCode(path);
             }
         }
