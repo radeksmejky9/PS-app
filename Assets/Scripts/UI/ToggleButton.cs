@@ -17,7 +17,11 @@ public class ToggleButton : Toggle
     protected override void Start()
     {
         base.Start();
-        //Image.material = category.Material;
+        if (category != null && category.Material != null)
+        {
+            Image.color = category.Material.color;
+        }
+
         this.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
