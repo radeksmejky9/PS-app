@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dadd4adf26c4c34fa9585b890671dcd, type: 3}
   m_Name: Environment
   m_EditorClassIdentifier: 
-  categoryGroup: {fileID: 11400000, guid: 8fa36948382aed844ac570deace7a107, type: 2}
-  material: {fileID: 2100000, guid: 0f324209af65f7540a959d6c607f6ab5, type: 2}
+  CategoryGroup: {fileID: 11400000, guid: 8fa36948382aed844ac570deace7a107, type: 2}
+  Material: {fileID: 2100000, guid: 0f324209af65f7540a959d6c607f6ab5, type: 2}

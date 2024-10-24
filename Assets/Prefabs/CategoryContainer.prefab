@@ -650,6 +650,7 @@ MonoBehaviour:
   categoryContent: {fileID: 1013300080972913373}
   categoryContainerRectTransform: {fileID: 2008034676930963123}
   collapseButton: {fileID: 6861943862809642692}
+  arrowTransform: {fileID: 4858237159206500664}
 --- !u!1 &6861943862809642692
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dadd4adf26c4c34fa9585b890671dcd, type: 3}
   m_Name: HotWater
   m_EditorClassIdentifier: 
-  categoryGroup: {fileID: 11400000, guid: cbc4d7bf408e8cd4eb879bd651d81698, type: 2}
-  material: {fileID: 2100000, guid: 070ec9960d8984d48bb9abf6e3fa4a99, type: 2}
+  CategoryGroup: {fileID: 11400000, guid: cbc4d7bf408e8cd4eb879bd651d81698, type: 2}
+  Material: {fileID: 2100000, guid: 070ec9960d8984d48bb9abf6e3fa4a99, type: 2}

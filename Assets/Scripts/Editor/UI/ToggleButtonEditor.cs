@@ -5,14 +5,14 @@ using UnityEngine;
 [CustomEditor(typeof(ToggleButton))]
 public class ToggleButtonEditor : ToggleEditor
 {
-    SerializedProperty Label;
-    SerializedProperty img;
+    private SerializedProperty Label;
+    private SerializedProperty StripeImage;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         Label = serializedObject.FindProperty("Label");
-        img = serializedObject.FindProperty("img");
+        StripeImage = serializedObject.FindProperty("Image");
     }
 
     public override void OnInspectorGUI()
@@ -20,7 +20,7 @@ public class ToggleButtonEditor : ToggleEditor
         base.OnInspectorGUI();
         serializedObject.Update();
         EditorGUILayout.PropertyField(Label, new GUIContent("Label"));
-        EditorGUILayout.PropertyField(img, new GUIContent("img"));
+        EditorGUILayout.PropertyField(StripeImage, new GUIContent("Stripe Image"));
         serializedObject.ApplyModifiedProperties();
     }
 }

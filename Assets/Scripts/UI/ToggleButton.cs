@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class ToggleButton : Toggle
 {
+    [SerializeField]
+    private Image Image;
+
     public event Action<Category, CategoryGroup, bool> OnToggleChanged;
     public TextMeshProUGUI Label;
     public Category category;
     public CategoryGroup categoryGroup;
 
-    public Image img;
 
     protected override void Start()
     {
         base.Start();
-        img.material = category.material;
-
+        //Image.material = category.Material;
         this.onValueChanged.AddListener(OnToggleValueChanged);
     }
 

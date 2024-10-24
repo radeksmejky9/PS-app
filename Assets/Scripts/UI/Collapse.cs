@@ -6,19 +6,21 @@ using UnityEngine.UI;
 public class Collapse : MonoBehaviour
 {
     [SerializeField] private GameObject categoryContent;
-    private RectTransform parentRectTransform;
     [SerializeField] private RectTransform categoryContainerRectTransform;
     [SerializeField] private GameObject collapseButton;
+    [SerializeField] private RectTransform arrowTransform;
+
+    private RectTransform parentRectTransform;
     private RectTransform categoryContentRectTransform;
-    private RectTransform arrowTransform;
-    private List<GameObject> children;
+    private List<GameObject> children = new List<GameObject>();
     private bool isCollapsed = true;
 
     private void Start()
     {
-        children = new List<GameObject>();
-        GameObjectUtils.GetChildGameObjects(categoryContent, children);
-        arrowTransform = collapseButton.GetComponent<RectTransform>();
+        foreach (Transform child in categoryContent.transform)
+        {
+            children.Add(child.gameObject);
+        }
         categoryContentRectTransform = categoryContent.GetComponent<RectTransform>();
         parentRectTransform = categoryContainerRectTransform.GetComponentInParent<RectTransform>();
     }

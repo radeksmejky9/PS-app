@@ -43,7 +43,6 @@ public class ToggleButtonManager : MonoBehaviour
         {
             GameObject toggleGroupButton = Instantiate(toggleGroupButtonPrefab, parent);
             ToggleGroupButton groupToggleObj = toggleGroupButton.GetComponentInChildren<ToggleGroupButton>();
-            Debug.Log(groupToggleObj);
             groupToggleObj.Label.text = group.ToString();
             groupToggleObj.OnToggledGroup += OnCategoryGroupToggled;
             groupToggleObj.categoryGroup = group;
@@ -51,12 +50,12 @@ public class ToggleButtonManager : MonoBehaviour
 
             foreach (var category in categories)
             {
-                if (category.categoryGroup != group) continue;
+                if (category.CategoryGroup != group) continue;
 
                 ToggleButton toggleObj = Instantiate(tgButtonPrefab, groupToggleObj.Content.transform);
                 toggleObj.Label.text = category.ToString();
                 toggleObj.category = category;
-                toggleObj.categoryGroup = category.categoryGroup;
+                toggleObj.categoryGroup = category.CategoryGroup;
                 toggleObj.OnToggleChanged += OnCategoryToggle;
                 toggleButtons.Add(toggleObj);
                 groupToggleObj.toggleButtons.Add(toggleObj);
@@ -65,7 +64,7 @@ public class ToggleButtonManager : MonoBehaviour
 
         foreach (var category in categories)
         {
-            if (category.categoryGroup != null) continue;
+            if (category.CategoryGroup != null) continue;
 
             ToggleButton toggleObj = Instantiate(tgButtonPrefab, parent);
             toggleObj.Label.text = category.ToString();

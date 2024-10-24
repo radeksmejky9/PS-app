@@ -28,11 +28,11 @@ public class ToggleGroupButtonEditor : ToggleEditor
     {
         base.OnInspectorGUI();
         serializedObject.Update();
-        EditorGUILayout.PropertyField(FullSprite, new GUIContent("FullSprite"));
-        EditorGUILayout.PropertyField(PartialSprite, new GUIContent("PartialSprite"));
-        EditorGUILayout.PropertyField(EmptySprite, new GUIContent("EmptySprite"));
-        EditorGUILayout.PropertyField(CheckImage, new GUIContent("CheckImage"));
-        EditorGUILayout.PropertyField(BackgroundImage, new GUIContent("BackgroundImage"));
+        EditorGUILayout.PropertyField(FullSprite, new GUIContent("Full Sprite"));
+        EditorGUILayout.PropertyField(PartialSprite, new GUIContent("Partial Sprite"));
+        EditorGUILayout.PropertyField(EmptySprite, new GUIContent("Empty Sprite"));
+        EditorGUILayout.PropertyField(CheckImage, new GUIContent("Check Image"));
+        EditorGUILayout.PropertyField(BackgroundImage, new GUIContent("Background Image"));
         EditorGUILayout.PropertyField(Label, new GUIContent("Label"));
         EditorGUILayout.PropertyField(Content, new GUIContent("Content"));
         serializedObject.ApplyModifiedProperties();

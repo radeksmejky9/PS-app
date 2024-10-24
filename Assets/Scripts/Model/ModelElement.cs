@@ -15,7 +15,7 @@ public class ModelElement : MonoBehaviour
             if (TryGetComponent(out MeshRenderer renderer))
             {
                 meshRenderer = renderer;
-                meshRenderer.material = category.material;
+                meshRenderer.material = category.Material;
             }
         }
     }

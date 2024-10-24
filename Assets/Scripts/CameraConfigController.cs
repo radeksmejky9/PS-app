@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 
 public class CameraConfigController : MonoBehaviour
@@ -12,12 +8,12 @@ public class CameraConfigController : MonoBehaviour
     public ARCameraManager arCameraManager;
 
     private bool _init = false;
-    void OnEnable()
+    private void OnEnable()
     {
         arCameraManager.frameReceived += OnCameraFrameReceived;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         arCameraManager.frameReceived -= OnCameraFrameReceived;
     }
@@ -31,14 +27,14 @@ public class CameraConfigController : MonoBehaviour
                 //In my case 0=640*480, 1= 1280*720, 2=1920*1080
                 arCameraManager.subsystem.currentConfiguration = arCameraManager.GetConfigurations(Allocator.Temp)[2];
             }
-            catch (Exception e)
+            catch
             {
-                Debug.LogWarning(e);
-
+                arCameraManager.subsystem.currentConfiguration = arCameraManager.GetConfigurations(Allocator.Temp)[0];
             }
             finally
             {
                 _init = true;
+                arCameraManager.frameReceived -= OnCameraFrameReceived;
             }
         }
     }
