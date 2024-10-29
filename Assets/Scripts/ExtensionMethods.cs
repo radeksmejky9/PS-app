@@ -19,6 +19,7 @@ public static class Extensions
         Pipe closestObject = null;
         float closestDistance = Mathf.Infinity;
 
+
         Collider[] initialHitColliders = Physics.OverlapSphere(sourcePosition, maxRadius);
         if (initialHitColliders.Length == 0)
         {
@@ -45,11 +46,17 @@ public static class Extensions
                     }
                 }
             }
-
             if (closestObject != null) return closestObject;
             sphereRadius += radiusIncrement;
         }
         return null;
+    }
+
+    private static void CreateDebugSphere(Vector3 sourcePosition, float sphereRadius)
+    {
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = sourcePosition;
+        sphere.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
     }
 
     public static Vector2 Abs(this Vector2 _vector)

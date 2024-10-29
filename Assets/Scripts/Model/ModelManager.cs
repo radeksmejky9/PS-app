@@ -1,11 +1,11 @@
-using DocumentFormat.OpenXml.Drawing.Charts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ModelManager : MonoBehaviour
 {
+    public static Action<HashSet<Category>> OnModelsLoaded;
     public List<Transform> models;
 
     private List<ModelData> modelData;
@@ -15,13 +15,17 @@ public class ModelManager : MonoBehaviour
 
     private void Start()
     {
+        HashSet<Category> combinedCategories = new HashSet<Category>();
         categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
         modelData = new List<ModelData>();
         foreach (var model in models)
         {
-            modelData.Add(new ModelData(model.gameObject, categories: categories));
+            var data = new ModelData(model.gameObject, categories: categories);
+            modelData.Add(data);
+            combinedCategories.UnionWith(data.UsedCategories);
             model.gameObject.SetActive(false);
         }
+        OnModelsLoaded?.Invoke(combinedCategories);
     }
     private void OnEnable()
     {
@@ -58,7 +62,7 @@ public class ModelManager : MonoBehaviour
     }
     private void UpdateVisibility(ModelData data)
     {
-        foreach (var element in data.Elements)
+        foreach (var element in data.GetElementsOfType<ModelElement>())
         {
             element.gameObject.SetActive(data.Filter.Contains(element.Category));
         }

@@ -17,27 +17,31 @@ public class ToggleButtonManager : MonoBehaviour
     private List<ToggleGroupButton> toggleCategoryButtons = new List<ToggleGroupButton>();
     private List<ToggleButton> toggleButtons = new List<ToggleButton>();
 
-    private void Start()
+    private void Awake()
     {
         categoryGroups = Resources.LoadAll("CategoryGroup/", typeof(CategoryGroup)).Cast<CategoryGroup>().ToArray();
         categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
-        CreateCategoryMenu();
     }
 
     private void OnEnable()
     {
         tgAllButton.OnToggleAll += OnToggleAll;
+        ModelManager.OnModelsLoaded += CreateCategoryMenu;
     }
 
     private void OnDisable()
     {
         tgAllButton.OnToggleAll -= OnToggleAll;
+        ModelManager.OnModelsLoaded -= CreateCategoryMenu;
     }
 
-    private void CreateCategoryMenu()
+    private void CreateCategoryMenu(HashSet<Category> usedCategories)
     {
         foreach (CategoryGroup group in categoryGroups)
         {
+            var groupCategories = usedCategories.Where(category => category.CategoryGroup == group);
+            if (!groupCategories.Any()) continue;
+
             GameObject toggleGroupButton = Instantiate(toggleGroupButtonPrefab, parent);
             ToggleGroupButton groupToggleObj = toggleGroupButton.GetComponentInChildren<ToggleGroupButton>();
             groupToggleObj.Label.text = group.ToString();
@@ -45,10 +49,8 @@ public class ToggleButtonManager : MonoBehaviour
             groupToggleObj.categoryGroup = group;
             toggleCategoryButtons.Add(groupToggleObj);
 
-            foreach (var category in categories)
+            foreach (var category in groupCategories)
             {
-                if (category.CategoryGroup != group) continue;
-
                 ToggleButton toggleObj = Instantiate(tgButtonPrefab, groupToggleObj.Content.transform);
                 toggleObj.Label.text = category.ToString();
                 toggleObj.category = category;
@@ -59,10 +61,8 @@ public class ToggleButtonManager : MonoBehaviour
             }
         }
 
-        foreach (var category in categories)
+        foreach (var category in usedCategories.Where(c => c.CategoryGroup == null))
         {
-            if (category.CategoryGroup != null) continue;
-
             ToggleButton toggleObj = Instantiate(tgButtonPrefab, parent);
             toggleObj.Label.text = category.ToString();
             toggleObj.category = category;
@@ -71,6 +71,8 @@ public class ToggleButtonManager : MonoBehaviour
             toggleButtons.Add(toggleObj);
         }
     }
+
+
 
     private void OnCategoryToggle(Category category, CategoryGroup categoryGroup, bool isToggled)
     {
