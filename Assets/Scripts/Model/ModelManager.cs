@@ -8,6 +8,8 @@ public class ModelManager : MonoBehaviour
     public static Action<HashSet<Category>> OnModelsLoaded;
     public List<Transform> models;
 
+    public Dictionary<GameObject, List<string>> keyValuePairs;
+
     private List<ModelData> modelData;
 
     [SerializeField]

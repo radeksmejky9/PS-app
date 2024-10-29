@@ -66,22 +66,7 @@ public class QRGeneratorEditor : Editor
         if (GUILayout.Button("Save QR Code to PC"))
         {
             string path = EditorUtility.SaveFilePanel("Save QR Code", downloadsPath, $"QR-{name}.png", "png");
-            if (!string.IsNullOrEmpty(path))
-            {
-                int counter = 0;
-                string originalPath = path;
-
-                while (System.IO.File.Exists(path))
-                {
-                    counter++;
-                }
-
-                if (counter != 0)
-                {
-                    path = originalPath.Replace(".png", $"({counter}).png");
-                }
-                qrGenerator.SaveQRCode(path);
-            }
+            qrGenerator.SaveQRCode(path);
         }
     }
 }

@@ -35,22 +35,7 @@ public class BeanQRGeneratorEditor : Editor
         if (GUILayout.Button("Save QR Code to PC"))
         {
             string path = EditorUtility.SaveFilePanel("Save QR Code", downloadsPath, $"QR-{name}.png", "png");
-            if (!string.IsNullOrEmpty(path))
-            {
-                int counter = 0;
-                string originalPath = path;
-
-                while (System.IO.File.Exists(path))
-                {
-                    counter++;
-                }
-
-                if (counter != 0)
-                {
-                    path = originalPath.Replace(".png", $"({counter}).png");
-                }
-                bean.QRGenerator.SaveQRCode(path);
-            }
+            bean.QRGenerator.SaveQRCode(path);
         }
         if (GUILayout.Button("Save QR Code to Snapping Points Folder"))
         {
