@@ -11,6 +11,8 @@ public class QRGenerator : ScriptableObject
     public SnappingPoint SnappingPoint;
     public Texture2D QRCodeTexture;
 
+    private Texture2D rawQRTexture;
+
     public string JsonString = @"{
     ""Building"": ""DCUK"",
     ""Room"": ""Mistnost"",
@@ -27,10 +29,14 @@ public class QRGenerator : ScriptableObject
     {
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
     };
+
     public void Awake()
     {
         SnappingPoint = new SnappingPoint("DCUK", "Mistnost", new Vector3(0, 0, 0), 0, "google.com");
+        QRSpawner.Instance.OnQRGenerated += DisplayQR;
     }
+
+
     public void UpdateJSONFromFields()
     {
         try
@@ -57,10 +63,8 @@ public class QRGenerator : ScriptableObject
 
     public void GenerateQR()
     {
-
-        QRCodeTexture = GenerateQRFromJSON(SnappingPoint.Encode(SnappingPoint));
+        GenerateQRFromJSON(SnappingPoint.Encode(SnappingPoint));
     }
-
     public void SaveQRCode(string path)
     {
         if (QRCodeTexture == null)
@@ -73,7 +77,7 @@ public class QRGenerator : ScriptableObject
         File.WriteAllBytes(path, bytes);
         Debug.Log($"QR Code saved to: {path}");
     }
-    private Texture2D GenerateQRFromJSON(string qrText, int width = 2048, int height = 2048)
+    private void GenerateQRFromJSON(string qrText, int width = 2048, int height = 2048)
     {
         BarcodeWriter writer = new BarcodeWriter
         {
@@ -86,18 +90,22 @@ public class QRGenerator : ScriptableObject
             }
         };
         Color32[] qrCodePixels = writer.Write(qrText.RemoveWhiteSpace().Base64Encode());
-        Texture2D qrCodeTexture = new Texture2D(width, height);
-        qrCodeTexture.SetPixels32(qrCodePixels);
-        qrCodeTexture.Apply();
+        Texture2D rawQRTexture = new Texture2D(width, height);
+        rawQRTexture.SetPixels32(qrCodePixels);
+        rawQRTexture.Apply();
 
-        var font = Resources.Load("CustomFontArial") as Font;
-
-        TextToTexture txt = new TextToTexture(font, 10, 10, Array.Empty<PerCharacterKerning>(), true);
-        var textTure = txt.CreateTextToTexture("ahoj", 0, 0, 2048, 3, 0.75f);
-
-
-        return AddWatermark(qrCodeTexture, textTure, 0, qrCodeTexture.height - textTure.height);
+        QRSpawner.Instance.GenerateTexture(rawQRTexture, $"{SnappingPoint.Building} - {SnappingPoint.Room}", (texture) =>
+        {
+            QRCodeTexture = texture;
+        });
     }
+
+    private void DisplayQR(Texture2D d)
+    {
+        throw new NotImplementedException();
+    }
+
+
     public static QRGenerator CreateInstance(SnappingPoint sp)
     {
         var qrgen = ScriptableObject.CreateInstance<QRGenerator>();
@@ -105,31 +113,4 @@ public class QRGenerator : ScriptableObject
         qrgen.UpdateJSONFromFields();
         return qrgen;
     }
-
-    public static Texture2D AddWatermark(Texture2D background, Texture2D watermark, int startX, int startY)
-    {
-        Texture2D newTex = new Texture2D(background.width, background.height, background.format, false);
-        for (int x = 0; x < background.width; x++)
-        {
-            for (int y = 0; y < background.height; y++)
-            {
-                if (x >= startX && y >= startY && x < watermark.width && y < watermark.height)
-                {
-                    Color bgColor = background.GetPixel(x, y);
-                    Color wmColor = watermark.GetPixel(x - startX, y - startY);
-
-                    Color final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
-
-                    newTex.SetPixel(x, y, final_color);
-                }
-                else
-                    newTex.SetPixel(x, y, background.GetPixel(x, y));
-            }
-        }
-
-        newTex.Apply();
-        return newTex;
-    }
-
-
 }

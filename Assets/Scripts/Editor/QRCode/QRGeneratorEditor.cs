@@ -29,6 +29,8 @@ public class QRGeneratorEditor : Editor
     private void UseFields()
     {
         SerializedProperty snappingPointProperty = serializedObject.FindProperty("SnappingPoint");
+        SerializedProperty arCamera = serializedObject.FindProperty("CameraManager");
+
         qrGenerator.UpdateFieldsFromJSON();
         serializedObject.Update();
 
@@ -43,6 +45,7 @@ public class QRGeneratorEditor : Editor
 
         if (GUILayout.Button("Generate QR Code"))
             qrGenerator.GenerateQR();
+
     }
     private void UseJSONEditor()
     {
