@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SnappingPoint:
     Building: DCUK
-    Room: technicka_laborator
+    Room: "Technick\xE1 laborato\u0159"
     Position:
       x: 8.81
       y: 1.7
@@ -22,6 +22,6 @@ MonoBehaviour:
     Rotation: 0
     Url: asdljasdjak.com
   QRCodeTexture: {fileID: 0}
-  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"technicka_laborator\",\r\n 
+  JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"Technick\xE1 laborato\u0159\",\r\n 
     \"Position\": {\r\n    \"x\": 8.81,\r\n    \"y\": 1.7,\r\n    \"z\": -1.92\r\n 
     },\r\n  \"Rotation\": 0.0,\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"

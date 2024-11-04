@@ -6,12 +6,15 @@ using Unity.Collections;
 using UnityEngine.XR.ARSubsystems;
 using System;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class QRScanner : MonoBehaviour
 {
     public static Action<SnappingPoint> OnQRScanned;
 
     public ARCameraManager CameraManager;
+    public Image Animation;
 
     [Range(1, 1920)]
     public int previewWidth;
@@ -20,10 +23,10 @@ public class QRScanner : MonoBehaviour
 
     public bool ScanningMode
     {
-        get { return _scanningMode; }
+        get { return scanningMode; }
         private set
         {
-            _qrCode = string.Empty;
+            qrCode = string.Empty;
 
             if (value == true)
             {
@@ -31,14 +34,16 @@ public class QRScanner : MonoBehaviour
                 StartCoroutine(GetQRCode());
             }
 
-            _scanningMode = value;
+            scanPreviewImage.enabled = value;
+            this.Animation.gameObject.SetActive(value);
+            scanningMode = value;
         }
     }
 
-
-    private bool _scanningMode = false;
-    private string _qrCode = string.Empty;
-    private RectInt _scanningArea;
+    private bool scanningMode = false;
+    private string qrCode = string.Empty;
+    private RectInt scanningArea;
+    private Image scanPreviewImage;
 
     private int x = 0;
     private int y = 0;
@@ -47,6 +52,7 @@ public class QRScanner : MonoBehaviour
     {
         x = Screen.width / 2 - previewWidth / 2;
         y = Screen.height / 2 - previewHeight / 2;
+        scanPreviewImage = this.gameObject.GetComponent<Image>();
     }
 
     public void SetScanningMode()
@@ -56,7 +62,7 @@ public class QRScanner : MonoBehaviour
     private IEnumerator GetQRCode()
     {
         IBarcodeReader barCodeReader = new BarcodeReader();
-        while (string.IsNullOrEmpty(_qrCode))
+        while (string.IsNullOrEmpty(qrCode))
         {
             if (CameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
             {
@@ -66,18 +72,18 @@ public class QRScanner : MonoBehaviour
                     var Result = barCodeReader.Decode(cameraImageTexture.GetPixels32(), cameraImageTexture.width, cameraImageTexture.height);
                     if (Result != null)
                     {
-                        _qrCode = Result.Text;
-                        if (!string.IsNullOrEmpty(_qrCode))
+                        qrCode = Result.Text;
+                        if (!string.IsNullOrEmpty(qrCode))
                         {
                             try
                             {
-                                OnQRScanned?.Invoke(SnappingPoint.Decode(_qrCode.Base64Decode()));
-                                Debug.Log("DECODED TEXT FROM QR: " + _qrCode.Base64Decode());
+                                OnQRScanned?.Invoke(SnappingPoint.Decode(qrCode.Base64Decode()));
+                                Debug.Log("DECODED TEXT FROM QR: " + qrCode.Base64Decode());
                             }
                             catch
                             {
-                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(_qrCode));
-                                Debug.Log("DECODED TEXT FROM QR: " + _qrCode);
+                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(qrCode));
+                                Debug.Log("DECODED TEXT FROM QR: " + qrCode);
                             }
 
                             Vibration.Vibrate(100);
@@ -90,7 +96,7 @@ public class QRScanner : MonoBehaviour
                 {
                     Debug.Log("Failed to scan");
                     Debug.LogError(ex.Message);
-                    _qrCode = string.Empty;
+                    qrCode = string.Empty;
                 }
                 finally
                 {
@@ -102,7 +108,8 @@ public class QRScanner : MonoBehaviour
     }
     void OnGUI()
     {
-        if (!ScanningMode) return;
+        //if (!ScanningMode)
+        return;
 
         Texture2D backgroundTexture = new Texture2D(1, 1);
         backgroundTexture.SetPixel(0, 0, new Color(0, 0, 0, 0.5f));
@@ -114,15 +121,15 @@ public class QRScanner : MonoBehaviour
             normal = { background = backgroundTexture }
         };
 
-        GUI.Box(new Rect(0, 0, Screen.width, _scanningArea.y), "", style);
-        GUI.Box(new Rect(0, _scanningArea.y + _scanningArea.height, Screen.width, Screen.height - (_scanningArea.y + _scanningArea.height)), "", style);
-        GUI.Box(new Rect(0, _scanningArea.y, _scanningArea.x, _scanningArea.height), "", style);
-        GUI.Box(new Rect(_scanningArea.x + _scanningArea.width, _scanningArea.y, Screen.width - (_scanningArea.x + _scanningArea.width), _scanningArea.height), "", style);
+        GUI.Box(new Rect(0, 0, Screen.width, scanningArea.y), "", style);
+        GUI.Box(new Rect(0, scanningArea.y + scanningArea.height, Screen.width, Screen.height - (scanningArea.y + scanningArea.height)), "", style);
+        GUI.Box(new Rect(0, scanningArea.y, scanningArea.x, scanningArea.height), "", style);
+        GUI.Box(new Rect(scanningArea.x + scanningArea.width, scanningArea.y, Screen.width - (scanningArea.x + scanningArea.width), scanningArea.height), "", style);
     }
 
     private void InitScanningArea()
     {
-        _scanningArea = new RectInt(x, y, previewWidth, previewHeight);
+        scanningArea = new RectInt(x, y, previewWidth, previewHeight);
     }
     private Texture2D GetImageTexture(XRCpuImage image)
     {
