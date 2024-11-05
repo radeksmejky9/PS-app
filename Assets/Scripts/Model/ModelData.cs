@@ -9,7 +9,7 @@ public class ModelData
 {
     private readonly string PIPE_PATTERN;
     private readonly string CONNECTION_PATTERN;
-    private readonly Category[] categories;
+    private readonly List<Category> categories;
     private readonly List<ModelElement> elements = new List<ModelElement>();
     private readonly HashSet<Category> usedCategories = new HashSet<Category>();
 
@@ -32,12 +32,12 @@ public class ModelData
         GameObject model,
         string pipe_pattern = @"(?:Pipe Types|DuctSegment|PipeSegment\b)(?<!type\b.*)",
         string connection_pattern = "FlowFitting",
-        Category[] categories = null)
+        List<Category> categories = null)
     {
         this.Model = model;
         this.PIPE_PATTERN = pipe_pattern;
         this.CONNECTION_PATTERN = connection_pattern;
-        this.categories = categories ?? new Category[] { };
+        this.categories = categories ?? new List<Category> { };
         this.Filter = this.categories.ToList();
         InitModel();
     }
@@ -75,7 +75,7 @@ public class ModelData
 
         string pipeType = match.Groups[1].Value.Replace(" ", "");
 
-        if (Array.Exists(categories, category => string.Equals(category.ToString(), pipeType, StringComparison.OrdinalIgnoreCase)))
+        if (categories.Exists(category => string.Equals(category.ToString(), pipeType, StringComparison.OrdinalIgnoreCase)))
         {
             AddCategory(pipe, pipeType);
         }
