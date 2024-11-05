@@ -1,27 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToggleButtonManager : MonoBehaviour
 {
     public static Action<Category, bool> CategoryToggled;
+
     public Transform parent;
     public ToggleButton tgButtonPrefab;
     public ToggleAllButton tgAllButton;
-
     public GameObject toggleGroupButtonPrefab;
-    private Category[] categories;
-    private CategoryGroup[] categoryGroups;
+
 
     private List<ToggleGroupButton> toggleCategoryButtons = new List<ToggleGroupButton>();
     private List<ToggleButton> toggleButtons = new List<ToggleButton>();
-
-    private void Awake()
-    {
-        categoryGroups = Resources.LoadAll("CategoryGroup/", typeof(CategoryGroup)).Cast<CategoryGroup>().ToArray();
-        categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
-    }
 
     private void OnEnable()
     {
@@ -37,7 +32,7 @@ public class ToggleButtonManager : MonoBehaviour
 
     private void CreateCategoryMenu(HashSet<Category> usedCategories)
     {
-        foreach (CategoryGroup group in categoryGroups)
+        foreach (CategoryGroup group in CategoryLoader.Instance.CategoryGroups)
         {
             var groupCategories = usedCategories.Where(category => category.CategoryGroup == group);
             if (!groupCategories.Any()) continue;

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ModelManager : MonoBehaviour
 {
@@ -10,38 +11,25 @@ public class ModelManager : MonoBehaviour
 
     public Dictionary<GameObject, List<string>> keyValuePairs;
 
-    private List<ModelData> modelData;
-
-    [SerializeField]
-    private Category[] categories;
+    private List<ModelData> modelData = new List<ModelData>();
 
     private void Start()
     {
-        HashSet<Category> combinedCategories = new HashSet<Category>();
-        categories = Resources.LoadAll("", typeof(Category)).Cast<Category>().ToArray();
-        modelData = new List<ModelData>();
-        foreach (var model in models)
-        {
-            var data = new ModelData(model.gameObject, categories: categories);
-            modelData.Add(data);
-            combinedCategories.UnionWith(data.UsedCategories);
-            model.gameObject.SetActive(false);
-        }
-        OnModelsLoaded?.Invoke(combinedCategories);
+        LoadModels();
     }
     private void OnEnable()
     {
         ToggleButtonManager.CategoryToggled += OnCategoryToggled;
-        QRScanner.OnQRScanned += EnableModel;
+        QRScanner.OnQRScanned += EnableModels;
     }
 
     private void OnDisable()
     {
         ToggleButtonManager.CategoryToggled -= OnCategoryToggled;
-        QRScanner.OnQRScanned -= EnableModel;
+        QRScanner.OnQRScanned -= EnableModels;
     }
 
-    private void EnableModel(SnappingPoint sp)
+    private void EnableModels(SnappingPoint sp)
     {
         models.ForEach(model => { model.gameObject.SetActive(true); });
     }
@@ -70,4 +58,17 @@ public class ModelManager : MonoBehaviour
         }
     }
 
+    private void LoadModels()
+    {
+        HashSet<Category> combinedCategories = new HashSet<Category>();
+
+        foreach (var model in models)
+        {
+            var data = new ModelData(model.gameObject, categories: CategoryLoader.Instance.Categories);
+            modelData.Add(data);
+            combinedCategories.UnionWith(data.UsedCategories);
+            model.gameObject.SetActive(false);
+        }
+        OnModelsLoaded?.Invoke(combinedCategories);
+    }
 }

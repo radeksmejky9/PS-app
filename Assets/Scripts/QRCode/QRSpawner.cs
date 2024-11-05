@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class QRSpawner : MonoBehaviour
+public class QRSpawner : MonoSingleton<QRSpawner>
 {
     public Action<Texture2D> OnQRGenerated;
 
@@ -13,19 +13,6 @@ public class QRSpawner : MonoBehaviour
     public RenderTexture RenderTexture;
     public TextMeshProUGUI Title;
     public RawImage Image;
-
-    private static QRSpawner _instance;
-    public static QRSpawner Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindExistingInstance() ?? CreateNewInstance();
-            }
-            return _instance;
-        }
-    }
 
     public void GenerateTexture(Texture2D qrTexture, string title, System.Action<Texture2D> onComplete)
     {
@@ -45,20 +32,5 @@ public class QRSpawner : MonoBehaviour
         RenderTexture.active = null;
 
         onComplete?.Invoke(tex);
-    }
-
-    private static QRSpawner FindExistingInstance()
-    {
-        QRSpawner[] existingInstances = FindObjectsOfType<QRSpawner>();
-
-        if (existingInstances == null || existingInstances.Length == 0) return null;
-
-        return existingInstances[0];
-    }
-
-    private static QRSpawner CreateNewInstance()
-    {
-        var containerGO = new GameObject("__" + typeof(QRSpawner).Name + " (Singleton)");
-        return containerGO.AddComponent<QRSpawner>();
     }
 }

@@ -12,6 +12,8 @@ public class ModelElement : MonoBehaviour
         set
         {
             category = value;
+            if (category == null) return;
+
             if (TryGetComponent(out MeshRenderer renderer))
             {
                 meshRenderer = renderer;
