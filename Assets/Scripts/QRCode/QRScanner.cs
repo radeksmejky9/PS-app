@@ -23,20 +23,29 @@ public class QRScanner : MonoBehaviour
 
     public bool ScanningMode
     {
-        get { return scanningMode; }
+        get => scanningMode;
         private set
         {
-            qrCode = string.Empty;
+            if (scanningMode == value) return;
 
-            if (value == true)
+            scanningMode = value;
+
+            if (scanningMode)
             {
                 InitScanningArea();
-                StartCoroutine(GetQRCode());
+                scanningCoroutine = StartCoroutine(GetQRCode());
+            }
+            else
+            {
+                if (scanningCoroutine != null)
+                {
+                    StopCoroutine(scanningCoroutine);
+                    scanningCoroutine = null;
+                }
             }
 
-            scanPreviewImage.enabled = value;
-            this.Animation.gameObject.SetActive(value);
-            scanningMode = value;
+            scanPreviewImage.enabled = scanningMode;
+            //Animation.gameObject.SetActive(scanningMode);
         }
     }
 
@@ -44,6 +53,7 @@ public class QRScanner : MonoBehaviour
     private string qrCode = string.Empty;
     private RectInt scanningArea;
     private Image scanPreviewImage;
+    private Coroutine scanningCoroutine;
 
     private int x = 0;
     private int y = 0;
@@ -64,67 +74,47 @@ public class QRScanner : MonoBehaviour
         IBarcodeReader barCodeReader = new BarcodeReader();
         while (string.IsNullOrEmpty(qrCode))
         {
-            if (CameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
+            if (!CameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
             {
-                var cameraImageTexture = GetImageTexture(image);
-                try
-                {
-                    var Result = barCodeReader.Decode(cameraImageTexture.GetPixels32(), cameraImageTexture.width, cameraImageTexture.height);
-                    if (Result != null)
-                    {
-                        qrCode = Result.Text;
-                        if (!string.IsNullOrEmpty(qrCode))
-                        {
-                            try
-                            {
-                                OnQRScanned?.Invoke(SnappingPoint.Decode(qrCode.Base64Decode()));
-                                Debug.Log("DECODED TEXT FROM QR: " + qrCode.Base64Decode());
-                            }
-                            catch
-                            {
-                                OnQRScanned?.Invoke(JsonConvert.DeserializeObject<SnappingPoint>(qrCode));
-                                Debug.Log("DECODED TEXT FROM QR: " + qrCode);
-                            }
+                yield return null;
+                continue;
+            }
 
-                            Vibration.Vibrate(100);
-                            ScanningMode = false;
-                            break;
-                        }
+            var cameraImageTexture = GetImageTexture(image);
+            try
+            {
+                var result = barCodeReader.Decode(cameraImageTexture.GetPixels32(), cameraImageTexture.width, cameraImageTexture.height);
+                if (result != null)
+                {
+                    qrCode = result.Text;
+                    if (!string.IsNullOrEmpty(qrCode))
+                    {
+                        var point = SnappingPoint.Decode(qrCode.Base64Decode());
+                        ContentLoader.Instance.LoadModel(point.Url);
+                        //OnQRScanned?.Invoke(point);
+
+                        //Debug.Log("DECODED TEXT FROM QR: " + qrCode.Base64Decode());
+
+                        //Vibration.Vibrate(100);
+                        ScanningMode = false;
+                        break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Debug.Log("Failed to scan");
-                    Debug.LogError(ex.Message);
-                    qrCode = string.Empty;
-                }
-                finally
-                {
-                    image.Dispose();
-                }
             }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to scan: {ex.Message}");
+                Debug.LogError($"Stacktrace: {ex.StackTrace}");
+                qrCode = string.Empty;
+            }
+            finally
+            {
+                qrCode = string.Empty;
+                image.Dispose();
+            }
+
             yield return null;
         }
-    }
-    void OnGUI()
-    {
-        //if (!ScanningMode)
-        return;
-
-        Texture2D backgroundTexture = new Texture2D(1, 1);
-        backgroundTexture.SetPixel(0, 0, new Color(0, 0, 0, 0.5f));
-        backgroundTexture.Apply();
-
-        var style = new GUIStyle()
-        {
-            border = new RectOffset(0, 0, 0, 0),
-            normal = { background = backgroundTexture }
-        };
-
-        GUI.Box(new Rect(0, 0, Screen.width, scanningArea.y), "", style);
-        GUI.Box(new Rect(0, scanningArea.y + scanningArea.height, Screen.width, Screen.height - (scanningArea.y + scanningArea.height)), "", style);
-        GUI.Box(new Rect(0, scanningArea.y, scanningArea.x, scanningArea.height), "", style);
-        GUI.Box(new Rect(scanningArea.x + scanningArea.width, scanningArea.y, Screen.width - (scanningArea.x + scanningArea.width), scanningArea.height), "", style);
     }
 
     private void InitScanningArea()

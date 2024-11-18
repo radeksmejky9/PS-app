@@ -73,6 +73,12 @@ public class QRGenerator : ScriptableObject
             return;
         }
 
+        if (path == string.Empty)
+        {
+            Debug.Log("Saving cancelled.");
+            return;
+        }
+
         byte[] bytes = QRCodeTexture.EncodeToPNG();
         File.WriteAllBytes(path, bytes);
         Debug.Log($"QR Code saved to: {path}");

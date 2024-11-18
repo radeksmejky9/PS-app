@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,27 +57,13 @@ public static class Extensions
         sphere.transform.position = sourcePosition;
         sphere.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
     }
-
-    public static Vector2 Abs(this Vector2 _vector)
-    {
-        float _x = Mathf.Abs(_vector.x);
-        float _y = Mathf.Abs(_vector.y);
-
-        return new Vector2(_x, _y);
-    }
-
-    public static Vector3 Abs(this Vector3 _vector)
-    {
-        float _x = Mathf.Abs(_vector.x);
-        float _y = Mathf.Abs(_vector.y);
-        float _z = Mathf.Abs(_vector.y);
-
-        return new Vector3(_x, _y, _z);
-    }
-
     public static string Debug(this IEnumerable array)
     {
+        if (array == null)
+            return "The collection is null";
+
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
         foreach (var item in array)
         {
             if (item == null)
@@ -91,7 +76,7 @@ public static class Extensions
             if (nameProperty != null)
             {
                 string name = nameProperty.GetValue(item)?.ToString() ?? "null";
-                sb.AppendLine(name);
+                sb.AppendLine($"Name: {name}");
             }
             else
             {
@@ -100,6 +85,7 @@ public static class Extensions
         }
         return sb.ToString();
     }
+
     public static string Base64Encode(this string plainText)
     {
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
@@ -114,7 +100,6 @@ public static class Extensions
 
     public static string RemoveWhiteSpace(this string str)
     {
-        // Trim leading and trailing whitespace and replace internal spaces with underscores
         return str.Trim().Replace(" ", "_");
     }
 }

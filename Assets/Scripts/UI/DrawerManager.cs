@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using TMPro;
 using UnityEngine;
 
 public class Drawer : MonoBehaviour

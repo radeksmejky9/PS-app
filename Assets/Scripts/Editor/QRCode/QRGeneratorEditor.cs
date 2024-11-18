@@ -9,7 +9,6 @@ public class QRGeneratorEditor : Editor
     private QRGenerator qrGenerator;
     private string downloadsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile) + "/Downloads";
 
-
     public override void OnInspectorGUI()
     {
         qrGenerator = (QRGenerator)target;

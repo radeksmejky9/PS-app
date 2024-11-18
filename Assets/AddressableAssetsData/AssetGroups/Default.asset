@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  m_GroupName: Default
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3f26b17de695b5c4997850e5ebc89f5e
+  m_SerializeEntries:
+  - m_GUID: 03371044c6a667e4f8fa6a65ea193443
+    m_Address: Assets/ScriptableObjects/Categories/Concrete.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 198554a9daacdab44ba22d40642254a9
+    m_Address: Assets/ScriptableObjects/Categories/Conduit.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bec5a29fd60d3d478bf08cd3e4c18f7
+    m_Address: Assets/ScriptableObjects/Categories/GeothermalSupply.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b88009126637b14a95000d75cc8dfca
+    m_Address: Assets/ScriptableObjects/Categories/Vent.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d03e5f76a0615545996baeded8e4c90
+    m_Address: Assets/ScriptableObjects/Categories/Gas.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35c96ac7d9d291d4da7790c96e4ffa0d
+    m_Address: Assets/ScriptableObjects/Categories/Lighting.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41ce6925c2e01da4fab202c52452978a
+    m_Address: Assets/ScriptableObjects/Categories/CategoryGroup/Electricity.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category Group
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45866979441a1f647a4cfb186320f44e
+    m_Address: Assets/ScriptableObjects/Categories/Waste.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65ca47fdbd157ea4386e3fdc70c6a8a0
+    m_Address: Assets/ScriptableObjects/Categories/PVC.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a243decab9d3cc44be4e732649d980e
+    m_Address: Assets/ScriptableObjects/Categories/Undefined.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72bb3ec6bcff4764f898f477cf7887a1
+    m_Address: Assets/ScriptableObjects/Categories/HotWater.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f30319469b5e6a43944643045c6c4e4
+    m_Address: Assets/ScriptableObjects/Categories/Door.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 838f94ce3860b0c468202e191316d232
+    m_Address: Assets/ScriptableObjects/Categories/Environment.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86a6754f8df5d704699fdce254444c3d
+    m_Address: Assets/ScriptableObjects/Categories/SupplyAir.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fa36948382aed844ac570deace7a107
+    m_Address: Assets/ScriptableObjects/Categories/CategoryGroup/Misc.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category Group
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f042c875ca52444d968951fd8341384
+    m_Address: Assets/ScriptableObjects/Categories/FireWater.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6f26a5a286b3e14d94d52788c0af095
+    m_Address: Assets/ScriptableObjects/Categories/ColdWater.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a94ffe504d1318f46aea37bb80545c8f
+    m_Address: Assets/ScriptableObjects/Categories/Wall.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aee06635a4abf2d44b20ff8b2d23d935
+    m_Address: Assets/ScriptableObjects/Categories/ReturnAir.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6455afa048ab3c458929b132e467a9b
+    m_Address: Assets/ScriptableObjects/Categories/GeothermalReturn.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7e5590ce10205b4e8f6e4b42853b5fe
+    m_Address: Assets/ScriptableObjects/Categories/CategoryGroup/Structural.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category Group
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca75f433d0e329a4d80da1eef60b126e
+    m_Address: Assets/ScriptableObjects/Categories/Window.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbc4d7bf408e8cd4eb879bd651d81698
+    m_Address: Assets/ScriptableObjects/Categories/CategoryGroup/Plumbing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category Group
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d00b0f1b9f18a764b96813ecede4e466
+    m_Address: Assets/ScriptableObjects/Categories/Steel.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8af8ffec6fd5c745a9977128e520a06
+    m_Address: Assets/ScriptableObjects/Categories/Storm.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f890616bbbb4bb5468f7edd65075992c
+    m_Address: Assets/ScriptableObjects/Categories/CategoryGroup/Mechanical.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Category Group
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: e9fe671649859bd4cb5e8c3e8ad1afa4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ad02187465b1fd142bb05cadd26ad450, type: 2}
+    - {fileID: 11400000, guid: 8de193bb15ff8c34886c9e7ebd27e858, type: 2}

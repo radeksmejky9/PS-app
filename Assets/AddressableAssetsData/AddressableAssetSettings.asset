@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: 3f26b17de695b5c4997850e5ebc89f5e
   m_currentHash:
     serializedVersion: 2
-    Hash: 4503a15241abddefd73eed83fecd24f3
+    Hash: 0905c2bebf266570d544d5476b4959b5
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -35,10 +35,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: c6e4330cbd6676b478a3bf991bf24cd4
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: 67475d25634e86148abee0864f7844d0
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
       - m_Id: 67475d25634e86148abee0864f7844d0
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 6c0f97813d507894aa87db1f914ef36a
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: http://www.etikos.cz/data/
       - m_Id: c6e4330cbd6676b478a3bf991bf24cd4
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: cb98b92673d338d439e8229919bea909

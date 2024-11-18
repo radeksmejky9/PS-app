@@ -32,7 +32,7 @@ public class ToggleButtonManager : MonoBehaviour
 
     private void CreateCategoryMenu(HashSet<Category> usedCategories)
     {
-        foreach (CategoryGroup group in CategoryLoader.Instance.CategoryGroups)
+        foreach (CategoryGroup group in ContentLoader.Instance.CategoryGroups)
         {
             var groupCategories = usedCategories.Where(category => category.CategoryGroup == group);
             if (!groupCategories.Any()) continue;

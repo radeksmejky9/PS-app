@@ -12,7 +12,11 @@ public class ModelElement : MonoBehaviour
         set
         {
             category = value;
-            if (category == null) return;
+            if (meshRenderer != null)
+            {
+                meshRenderer.material = category.Material;
+                return;
+            }
 
             if (TryGetComponent(out MeshRenderer renderer))
             {

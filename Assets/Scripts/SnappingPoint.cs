@@ -23,11 +23,6 @@ public class SnappingPoint
     }
     public static string Encode(SnappingPoint sp)
     {
-        Debug.Log($"" +
-             $"{Math.Floor(sp.Position.x * 100)};" +
-             $"{Math.Floor(sp.Position.y * 100)};" +
-             $"{Math.Floor(sp.Position.z * 100)};");
-
         return $"" +
              $"{sp.Building};{sp.Room};{Math.Floor(sp.Position.x * 100)};" +
              $"{Math.Floor(sp.Position.y * 100)};" +
@@ -42,10 +37,7 @@ public class SnappingPoint
         Vector3 position = new Vector3(float.Parse(fields[2]) / 100, float.Parse(fields[3]) / 100, float.Parse(fields[4]) / 100);
         float rotation = float.Parse(fields[5]) / 100;
         string url = fields[6];
-        Debug.Log($"DEBUG POSITIONEN" +
-            $"{position.x};" +
-            $"{position.y};" +
-            $"{position.z};");
+
         return new SnappingPoint(building, room, position, rotation, url);
     }
 

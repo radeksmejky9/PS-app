@@ -20,8 +20,8 @@ MonoBehaviour:
       y: 1.7
       z: 1.8
     Rotation: 180
-    Url: asdljasdjak.com
+    Url: main.obj
   QRCodeTexture: {fileID: 0}
   JsonString: "{\r\n  \"Building\": \"DCUK\",\r\n  \"Room\": \"Zaseda\u010Dka\",\r\n 
     \"Position\": {\r\n    \"x\": -8.18,\r\n    \"y\": 1.7,\r\n    \"z\": 1.8\r\n 
-    },\r\n  \"Rotation\": 180.0,\r\n  \"Url\": \"asdljasdjak.com\"\r\n}"
+    },\r\n  \"Rotation\": 180.0,\r\n  \"Url\": \"main.obj\"\r\n}"

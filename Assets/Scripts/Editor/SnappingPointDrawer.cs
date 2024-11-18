@@ -1,8 +1,5 @@
-using DocumentFormat.OpenXml.Drawing;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [CustomPropertyDrawer(typeof(SnappingPointAttribute), true)]
 [CustomPropertyDrawer(typeof(SnappingPoint))]
