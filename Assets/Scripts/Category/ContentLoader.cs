@@ -69,5 +69,10 @@ public class ContentLoader : MonoSingleton<ContentLoader>
 
         //Addressables.Release(handle);
     }
+
+    public void LoadModel(SnappingPoint sp)
+    {
+        MultiObjectImporter.ImportModelAsync($"{sp.Building}-{sp.Room}", Path.Combine(SERVER_URL, sp.Url), this.transform, MultiObjectImporter.defaultImportOptions);
+    }
 }
 
