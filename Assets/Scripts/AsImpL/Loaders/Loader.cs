@@ -38,10 +38,10 @@ namespace AsImpL
 
         // raw subdivision in percentages of the loading phases (empirically computed loading a large sample OBJ file)
         // TODO: refine or change this method
-        protected static float LOAD_PHASE_PERC = 8f;
+        protected static float LOAD_PHASE_PERC = 38f;
         protected static float TEXTURE_PHASE_PERC = 1f;
         protected static float MATERIAL_PHASE_PERC = 1f;
-        protected static float BUILD_PHASE_PERC = 90f;
+        protected static float BUILD_PHASE_PERC = 60f;
 
         protected static Dictionary<string, GameObject> loadedModels = new Dictionary<string, GameObject>();
         protected static Dictionary<string, int> instanceCount = new Dictionary<string, int>();
@@ -414,13 +414,13 @@ namespace AsImpL
 
             objLoadingProgress.message = "Building scene objects...";
 
-            ////newObj.transform.localScale = Vector3.one * Scaling;
+            //newObj.transform.localScale = Vector3.one * Scaling;
             float initProgress = objLoadingProgress.percentage;
             Builder.StartBuildObjectAsync(dataSet, newObj);
             while (Builder.BuildObjectAsync(ref info))
             {
                 objLoadingProgress.message = "Building scene objects... " + (info.objectsLoaded + info.groupsLoaded) + "/" + (dataSet.objectList.Count + info.numGroups);
-                objLoadingProgress.percentage = initProgress + BUILD_PHASE_PERC * (info.objectsLoaded / dataSet.objectList.Count + (float)info.groupsLoaded / info.numGroups);
+                objLoadingProgress.percentage = initProgress + BUILD_PHASE_PERC * ((float)info.objectsLoaded / (float)dataSet.objectList.Count);// * (float)info.groupsLoaded / info.numGroups);
                 yield return null;
             }
             objLoadingProgress.percentage = 100.0f;

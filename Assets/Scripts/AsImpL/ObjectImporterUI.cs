@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AsImpL
@@ -10,7 +11,7 @@ namespace AsImpL
     public class ObjectImporterUI : MonoBehaviour
     {
         [Tooltip("Text for activity messages")]
-        public Text progressText;
+        public TextMeshProUGUI progressText;
 
         [Tooltip("Slider for the overall progress")]
         public Slider progressSlider;
@@ -18,8 +19,8 @@ namespace AsImpL
         [Tooltip("Panel with the Image Type set to Filled")]
         public Image progressImage;
 
+        [SerializeField]
         private ObjectImporter objImporter;
-
 
         private void Awake()
         {
@@ -36,29 +37,27 @@ namespace AsImpL
             {
                 progressText.gameObject.SetActive(false);
             }
-            objImporter = GetComponent<ObjectImporter>();
+            //objImporter = GetComponent<ObjectImporter>();
             // TODO: check and warn
         }
 
-
         private void OnEnable()
         {
-            /*objImporter.ImportingComplete += OnImportComplete;
-            objImporter.ImportingStart += OnImportStart;*/
+            ObjectImporter.ImportingComplete += OnImportComplete;
+            ObjectImporter.ImportingStart += OnImportStart;
         }
-
 
         private void OnDisable()
         {
-            /*objImporter.ImportingComplete -= OnImportComplete;
-            objImporter.ImportingStart -= OnImportStart;*/
+            ObjectImporter.ImportingComplete -= OnImportComplete;
+            ObjectImporter.ImportingStart -= OnImportStart;
         }
-
 
         private void Update()
         {
             bool loading = Loader.totalProgress.singleProgress.Count > 0;
             if (!loading) return;
+
             int numTotalImports = objImporter.NumImportRequests;
             int numImportCompleted = numTotalImports - Loader.totalProgress.singleProgress.Count;
 
@@ -68,7 +67,10 @@ namespace AsImpL
                 float maxSubProgress = 0.0f;
                 foreach (SingleLoadingProgress progr in Loader.totalProgress.singleProgress)
                 {
-                    if (maxSubProgress < progr.percentage) maxSubProgress = progr.percentage;
+                    if (maxSubProgress < progr.percentage)
+                    {
+                        maxSubProgress = progr.percentage;
+                    }
                 }
                 progress += maxSubProgress / numTotalImports;
                 if (progressSlider != null)
@@ -86,7 +88,8 @@ namespace AsImpL
                     if (loading)
                     {
                         progressText.gameObject.SetActive(loading);
-                        progressText.text = "Loading " + Loader.totalProgress.singleProgress.Count + " objects...";
+                        var objectCount = Loader.totalProgress.singleProgress.Count;
+                        progressText.text = $"Loading {objectCount} object{(objectCount == 1 ? string.Empty : 's')}...";
                         string loadersText = "";
                         int count = 0;
                         foreach (SingleLoadingProgress i in Loader.totalProgress.singleProgress)
@@ -124,7 +127,6 @@ namespace AsImpL
             }
         }
 
-
         private void OnImportStart()
         {
             if (progressText != null)
@@ -143,7 +145,6 @@ namespace AsImpL
             }
         }
 
-
         private void OnImportComplete()
         {
             if (progressText != null)
@@ -161,6 +162,5 @@ namespace AsImpL
                 progressImage.gameObject.SetActive(false);
             }
         }
-
     }
 }
