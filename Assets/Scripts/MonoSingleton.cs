@@ -33,7 +33,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     private static T FindExistingInstance()
     {
-        T[] existingInstances = FindObjectsOfType<T>();
+        T[] existingInstances = FindObjectsByType<T>(FindObjectsSortMode.None);
 
         if (existingInstances == null || existingInstances.Length == 0) return null;
 
@@ -45,15 +45,15 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         return existingInstances[0];
     }
 
-    /*private static T CreateNewInstance()
+    private static T CreateNewInstance()
     {
         var containerGO = new GameObject("__" + typeof(T).Name + " (Singleton)");
         return containerGO.AddComponent<T>();
-    }*/
+    }
 
-    private static T CreateNewInstance()
+    /*private static T CreateNewInstance()
     {
         Debug.LogError($"No instance of {typeof(T)} exists in the scene, and dynamic creation is not allowed.");
         return null;
-    }
+    }*/
 }

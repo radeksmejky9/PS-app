@@ -90,7 +90,7 @@ public class QRScanner : MonoBehaviour
                     if (!string.IsNullOrEmpty(qrCode))
                     {
                         var point = SnappingPoint.Decode(qrCode.Base64Decode());
-                        ContentLoader.Instance.LoadModel(point.Url);
+                        //ContentLoader.Instance.LoadModel(point.Url);
                         //OnQRScanned?.Invoke(point);
 
                         //Debug.Log("DECODED TEXT FROM QR: " + qrCode.Base64Decode());

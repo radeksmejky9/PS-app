@@ -16,7 +16,7 @@ public class ModelData
     private GameObject model;
     private List<Category> filter;
 
-    public GameObject Model { get => model; private set => model = value; }
+    public GameObject Model { get => model; set => model = value; }
     public List<Category> Filter { get => filter; set => filter = value; }
     public HashSet<Category> UsedCategories => usedCategories;
     public List<T> GetElementsOfType<T>() where T : ModelElement
@@ -29,30 +29,48 @@ public class ModelData
     }
 
     public ModelData(
-        GameObject model,
         string pipe_pattern = @"(?:Pipe Types|DuctSegment|PipeSegment\b)(?<!type\b.*)",
         string connection_pattern = "FlowFitting",
         List<Category> categories = null)
     {
-        this.Model = model;
         this.PIPE_PATTERN = pipe_pattern;
         this.CONNECTION_PATTERN = connection_pattern;
         this.categories = categories ?? new List<Category> { };
         this.Filter = this.categories.ToList();
-        InitModel();
     }
-    private void InitModel()
+
+    public void BuildElement(GameObject element)
     {
-        var elements = model.GetComponentsInChildren<Transform>(true).Where(t => t != model.transform).ToList();
+        Transform elementTransform = element.transform;
 
-        ProcessElements(elements, PIPE_PATTERN, CreatePipe);
-        ProcessElements(elements, CONNECTION_PATTERN, CreateFitting);
-        ProcessElements(elements, "Wall", CreateGenericCategory<Wall>, "Wall");
-        ProcessElements(elements, "Window", CreateGenericCategory<Window>, "Window");
-        ProcessElements(elements, "Door", CreateGenericCategory<Door>, "Door");
-        ProcessElements(elements, string.Empty, CreateGenericCategory<ModelElement>, "Environment");
+        switch (element.name)
+        {
+            case var name when Regex.IsMatch(name, PIPE_PATTERN, RegexOptions.IgnoreCase):
+                CreatePipe(Regex.Match(name, @":([^:]+):", RegexOptions.IgnoreCase), elementTransform);
+                break;
+
+            case var name when Regex.IsMatch(name, CONNECTION_PATTERN, RegexOptions.IgnoreCase):
+                CreateFitting(Regex.Match(name, @":([^:]+):", RegexOptions.IgnoreCase), elementTransform);
+                break;
+
+            case var name when Regex.IsMatch(name, "Wall", RegexOptions.IgnoreCase):
+                CreateGenericCategory<Wall>(Regex.Match(name, "Waål"), elementTransform, "Wall");
+                break;
+
+            case var name when Regex.IsMatch(name, "Door", RegexOptions.IgnoreCase):
+                CreateGenericCategory<Door>(Regex.Match(name, "Door"), elementTransform, "Door");
+                break;
+
+            case var name when Regex.IsMatch(name, "Window", RegexOptions.IgnoreCase):
+                CreateGenericCategory<Window>(Regex.Match(name, "Window"), elementTransform, "Window");
+                break;
+
+            default:
+                Match match = Regex.Match(element.name, string.Empty, RegexOptions.IgnoreCase);
+                CreateGenericCategory<ModelElement>(match, elementTransform, "Environment");
+                break;
+        }
     }
-
     private void CreateGenericCategory<T>(Match match, Transform element, string categoryType) where T : ModelElement
     {
         T modelElement = element.gameObject.AddComponent<T>();
@@ -63,15 +81,8 @@ public class ModelData
 
     private void CreatePipe(Match match, Transform element)
     {
-        match = Regex.Match(element.name, @":([^:]+):", RegexOptions.IgnoreCase);
         Pipe pipe = element.gameObject.AddComponent<Pipe>();
         pipe.gameObject.AddComponent<BoxCollider>();
-
-        if (!match.Success)
-        {
-            AddCategory(pipe, "Undefined");
-            return;
-        }
 
         string pipeType = match.Groups[1].Value.Replace(" ", "");
 
@@ -108,30 +119,5 @@ public class ModelData
         element.Category = category ?? FindCategory(categoryName) ?? FindCategory("Undefined");
         usedCategories.Add(element.Category);
         elements.Add(element);
-    }
-    private static void ProcessElements(List<Transform> elements, string pattern, Action<Match, Transform, string> creationMethod, string categoryType)
-    {
-        for (int i = elements.Count - 1; i >= 0; i--)
-        {
-            Transform element = elements[i];
-            Match match = Regex.Match(element.name, pattern, RegexOptions.IgnoreCase);
-            if (!match.Success) continue;
-
-            creationMethod(match, element, categoryType);
-            elements.RemoveAt(i);
-        }
-    }
-
-    private static void ProcessElements(List<Transform> elements, string pattern, Action<Match, Transform> creationMethod)
-    {
-        for (int i = elements.Count - 1; i >= 0; i--)
-        {
-            Transform element = elements[i];
-            Match match = Regex.Match(element.name, pattern, RegexOptions.IgnoreCase);
-            if (!match.Success) continue;
-
-            creationMethod(match, element);
-            elements.RemoveAt(i);
-        }
     }
 }

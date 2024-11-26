@@ -14,7 +14,6 @@ public class ToggleButtonManager : MonoBehaviour
     public ToggleAllButton tgAllButton;
     public GameObject toggleGroupButtonPrefab;
 
-
     private List<ToggleGroupButton> toggleCategoryButtons = new List<ToggleGroupButton>();
     private List<ToggleButton> toggleButtons = new List<ToggleButton>();
 
@@ -66,9 +65,6 @@ public class ToggleButtonManager : MonoBehaviour
             toggleButtons.Add(toggleObj);
         }
     }
-
-
-
     private void OnCategoryToggle(Category category, CategoryGroup categoryGroup, bool isToggled)
     {
         CategoryToggled?.Invoke(category, isToggled);
