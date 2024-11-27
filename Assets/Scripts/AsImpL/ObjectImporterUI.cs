@@ -13,6 +13,9 @@ namespace AsImpL
         [Tooltip("Text for activity messages")]
         public TextMeshProUGUI progressText;
 
+        [Tooltip("Text for time taken")]
+        public TextMeshProUGUI timeText;
+
         [Tooltip("Slider for the overall progress")]
         public Slider progressSlider;
 
@@ -21,6 +24,8 @@ namespace AsImpL
 
         [SerializeField]
         private ObjectImporter objImporter;
+
+        private float elapsedTime;
 
         private void Awake()
         {
@@ -36,6 +41,10 @@ namespace AsImpL
             if (progressText != null)
             {
                 progressText.gameObject.SetActive(false);
+            }
+            if (timeText != null)
+            {
+                timeText.gameObject.SetActive(false);
             }
             //objImporter = GetComponent<ObjectImporter>();
             // TODO: check and warn
@@ -56,7 +65,13 @@ namespace AsImpL
         private void Update()
         {
             bool loading = Loader.totalProgress.singleProgress.Count > 0;
-            if (!loading) return;
+            if (!loading)
+            {
+                elapsedTime = 0f;
+                return;
+            }
+
+            elapsedTime += Time.deltaTime;
 
             int numTotalImports = objImporter.NumImportRequests;
             int numImportCompleted = numTotalImports - Loader.totalProgress.singleProgress.Count;
@@ -120,6 +135,11 @@ namespace AsImpL
                         progressText.text = "";
                     }
                 }
+                if (timeText != null)
+                {
+                    timeText.gameObject.SetActive(loading);
+                    timeText.text = FormatTime(elapsedTime);
+                }
             }
             else
             {
@@ -160,6 +180,25 @@ namespace AsImpL
             {
                 progressImage.fillAmount = 1f;
                 progressImage.gameObject.SetActive(false);
+            }
+        }
+        private string FormatTime(float time)
+        {
+            if (time < 60)
+            {
+                return $"{time:F2}s";
+            }
+            else if (time < 3600)
+            {
+                int minutes = Mathf.FloorToInt(time / 60);
+                int seconds = Mathf.FloorToInt(time % 60);
+                return $"{minutes}min {seconds}s";
+            }
+            else
+            {
+                int hours = Mathf.FloorToInt(time / 3600);
+                int minutes = Mathf.FloorToInt((time % 3600) / 60);
+                return $"{hours}h {minutes}min";
             }
         }
     }
