@@ -128,7 +128,7 @@ namespace AsImpL
             }
             else
             {
-                if(Path.IsPathRooted(mtlLib))
+                if (Path.IsPathRooted(mtlLib))
                 {
                     mtlPath = "file:///" + mtlLib;
                 }
@@ -137,7 +137,7 @@ namespace AsImpL
                     mtlPath = "file:///" + basePath + mtlLib;
                 }
             }
-            yield return LoadOrDownloadText(mtlPath,false);
+            yield return LoadOrDownloadText(mtlPath, false);
             if (loadedText == null)
             {
                 mtlLib = Path.GetFileName(mtlLib);
@@ -629,13 +629,23 @@ namespace AsImpL
         {
             loadedText = null;
 
-            var enumerable = Filesystem.DownloadUri(url, notifyErrors);
+            var cacheEnumerator = Filesystem.LoadFromCache(url);
+            yield return cacheEnumerator;
 
-            yield return enumerable;
-
-            if (enumerable.Current != null)
+            if (cacheEnumerator.Current != null)
             {
-                loadedText = (string)enumerable.Current;
+                loadedText = (string)cacheEnumerator.Current;
+                Debug.Log("loaded from cache");
+                yield break; // Successfully loaded from cache
+            }
+
+            // If not cached, download
+            var downloadEnumerator = Filesystem.DownloadUri(url, notifyErrors);
+            yield return downloadEnumerator;
+
+            if (downloadEnumerator.Current != null)
+            {
+                loadedText = (string)downloadEnumerator.Current;
             }
         }
 

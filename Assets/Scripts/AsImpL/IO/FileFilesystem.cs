@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -27,6 +28,9 @@ namespace AsImpL
 
         public IEnumerator DownloadUri(string uri, bool notifyErrors)
         {
+            string fileName = Path.GetFileName(uri);
+            string fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+
 #if UNITY_2018_3_OR_NEWER
             UnityWebRequest uwr = UnityWebRequest.Get(uri);
             yield return uwr.SendWebRequest();
@@ -46,7 +50,8 @@ namespace AsImpL
             }
             else
             {
-                // Get downloaded asset bundle
+                var downloadedText = uwr.downloadHandler.text;
+                SaveToCache(fileNameWithoutExt, downloadedText);
                 yield return uwr.downloadHandler.text;
             }
 #else
@@ -143,5 +148,39 @@ namespace AsImpL
             return tex;
         }
 #endif
+        private void SaveToCache(string modelName, string content)
+        {
+            var path = Path.Combine(Application.temporaryCachePath, modelName);
+            try
+            {
+                File.WriteAllText(path, content);
+            }
+            catch (IOException ex)
+            {
+                Debug.LogError($"Failed to save cache: {ex.Message}");
+            }
+        }
+
+        public IEnumerator LoadFromCache(string uri)
+        {
+            string fileName = Path.GetFileName(uri);
+            string fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
+            var path = Path.Combine(Application.temporaryCachePath, fileNameWithoutExt);
+
+            if (File.Exists(path))
+            {
+                string content = File.ReadAllText(path);
+#if UNITY_EDITOR
+                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), $"Downloads/{fileNameWithoutExt}.txt");
+                File.WriteAllText(downloadsPath, content);
+                Debug.Log($"Saved cached data to Downloads: {downloadsPath}");
+#endif
+                yield return content;
+            }
+            else
+            {
+                yield return null;
+            }
+        }
     }
 }
