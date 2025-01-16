@@ -304,7 +304,7 @@
         <bounds x="888" y="768" width="232" height="72"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-c3958d778f6d411991d2998413d8c1e7" targetConnections="id-97a01337e4cc4d0dbedfe9ccaa3d4d29" font="1|Segoe UI|14.0|0|WINDOWS|1|-28|0|0|0|400|0|0|0|0|3|2|1|34|Segoe UI" archimateElement="id-19f63e8bc1a34afb9489b9637edfa48f">
-        <bounds x="1272" y="529" width="261" height="72"/>
+        <bounds x="1272" y="529" width="261" height="60"/>
       </child>
       <child xsi:type="archimate:DiagramObject" id="id-3ac3f55291224bdd853401633fe2d258" targetConnections="id-e6d3378efa714809b4ae75b3b6f0c1dc" font="1|Segoe UI|14.0|0|WINDOWS|1|-28|0|0|0|400|0|0|0|0|3|2|1|34|Segoe UI" archimateElement="id-0da96287804b4c06a31b8f0aa300f403">
         <bounds x="504" y="492" width="589" height="145"/>
